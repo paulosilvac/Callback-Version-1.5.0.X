@@ -1,0 +1,198 @@
+a {
+	 color: blue;
+	 text-decoration: none;
+	 text-decoration:underline;
+}
+
+a:hover {
+	 color: blue;
+	 text-decoration: underline;
+	 cursor:pointer;
+}
+
+a:visted {
+	 color: #316984;
+	 text-decoration: none;
+	 cursor:pointer;
+}
+
+body {
+	 background-attachment: fixed;
+	 background-color: #ffffff;
+	 background-repeat: no-repeat;
+	 color: black;
+	 font-family: arial,helvetica,sans-serif;
+}
+
+div.LoginProductName
+{
+	font-family: arial,helvetica,sans-serif;
+	font-size:150%;
+	/*font-weight:bold;*/
+	color:white;
+	overflow:hidden;
+}
+
+div.pgHeading
+{
+	font-family: arial,helvetica,sans-serif;
+	font-size:125%;
+	/*font-weight:bold;*/
+	color:#000000;
+	overflow:hidden;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+caption
+{
+	font-family: arial,helvetica,sans-serif;
+	text-align:left;
+	font-weight:bold;
+	font-size:80%;
+	background-color:#FED166;
+	padding:5px;
+}
+
+div.pageheader
+{
+	position:relative;
+	left:180px;
+	top:0px;
+	height:0px;
+	font-size:124.5%;
+}
+
+#content {
+	 border: 1px solid #d6d7d6;
+	 font-size: 93.5%;
+	 margin: 0px 10% 30px 10%;
+}
+ 
+#content-header {
+	 background-color: #eeeeee;
+	 border-bottom: 1px solid #666666;
+	 color: #666666;
+	 font-size: 124.5%;
+	 padding: 5px 15px 5px 15px;
+}
+
+#copyright {
+	 font-size: 75%;
+	 margin: 0px 10% 0px 10%;
+	 padding: 3px 0px 0px 0px;
+	 text-align: right;
+}
+
+img {
+	 position:absolute;
+	 display: block;
+	 margin: 20px 20px 0px 0px;
+	 top:-10px;
+}
+
+img.normal {
+	 position:relative;
+	 display: block;
+	 margin: 15px 0px 0px 0px;
+}
+
+div.logo {
+	width:100%;
+	margin: 0px 0% 0px 0%;
+	background: linear-gradient(to right, white , #fdb913);
+	overflow:hidden;
+}
+
+tr.hover:nth-child(even){background-color: #FFF7E5}
+tr.hover:nth-child(odd){background-color: #FFF0CB}
+tr.hover:hover {background-color: #44afdf}
+
+p {
+	 padding: 5px 15px 5px 15px;
+	 
+}
+
+pre {
+	 padding: 5px 15px 5px 30px;
+}
+
+.tdCSQ
+{
+	padding:5px;
+	font-size: 80%;
+	font-family: arial,helvetica,sans-serif;
+}
+
+.csqTableHeadings
+{
+	padding:5px;
+	background-color:#FEE19A;
+	font-size: 80%;
+	font-family: arial,helvetica,sans-serif;
+	border-bottom: 1px solid #fdb913;
+}
+
+.LoginButton
+{
+	font-family:Verdana;
+	background-color:#fdb913;
+	/*color:#ffffff;*/
+	color:#000000;
+	border-top:1px solid #FEE19A;
+	border-left:1px solid #FEE19A;
+	border-right:1px solid #976B01;
+	border-bottom:1px solid #976B01;
+}
+
+.LoginField 
+{
+	font-size: 75%;
+	font-family:Verdana;
+	/*color:#ffffff;*/
+	color:#000000;
+}
+
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+	 position: fixed;
+    width: 50%;
+	 top:30%;
+	 left:20%;
+	 font-family:Arial;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}

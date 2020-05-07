@@ -1,0 +1,89 @@
+{
+    "csqs" : [
+        {
+		"name" : "Demo"
+            ,"dispositioncodes" : [
+                {
+                    "displayname" : "Voicemail"
+                    ,"value" : 1
+                }
+                ,{
+                    "displayname" : "Busy"
+                    ,"value" : 2
+                }
+                ,{
+                    "displayname" : "Wrong Person"
+                    ,"value" : 3
+                }
+            ]
+        }
+        ,{
+            "name" : "JustDavePlease"
+            ,"dispositioncodes" : [
+                {
+                    "displayname" : "Voicemail"
+                    ,"value" : 1
+                }
+                ,{
+                    "displayname" : "Busy"
+                    ,"value" : 2
+                }
+                ,{
+                    "displayname" : "Wrong Person"
+                    ,"value" : 3
+                }
+            ]
+        }
+        ,{
+            "name" : "Service"
+            ,"dispositioncodes" : [
+                {
+                    "displayname" : "Call back in 15 mins"
+                    ,"value" : 15
+                }
+                ,{
+                    "displayname" : "Call back in 30 mins"
+                    ,"value" : 30
+                }
+                ,{
+                    "displayname" : "Call back in 60 mins"
+                    ,"value" : 60
+                }
+            ]
+        }
+		,{
+            "name" : "CBTESTQUEUE"
+            ,"dispositioncodes" : [
+                {
+                    "displayname" : "Voicemail"
+                    ,"value" : 1
+                }
+                ,{
+                    "displayname" : "Busy"
+                    ,"value" : 2
+                }
+                ,{
+                    "displayname" : "Wrong Person"
+                    ,"value" : 3
+                }
+            ]
+        }
+		 ,{
+            "name" : "dsb"
+            ,"dispositioncodes" : [
+                {
+                    "displayname" : "Voicemail"
+                    ,"value" : 1
+                }
+                ,{
+                    "displayname" : "Busy"
+                    ,"value" : 2
+                }
+                ,{
+                    "displayname" : "Wrong Person"
+                    ,"value" : 3
+                }
+            ]
+        }   
+    ]
+}

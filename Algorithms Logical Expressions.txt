@@ -1,0 +1,8 @@
+Callback Offer Algorithm
+
+AgentsLoggedIn >= X AND [ CallsWaiting > N OR LongestQueueTime > P ] AND CallbackRequests <= M
+
+
+Callback Reentry Algorithm
+
+TotalInQueue <= X AND [ CSQAgentsReady >= N OR CSQCallsWaiting <= M]

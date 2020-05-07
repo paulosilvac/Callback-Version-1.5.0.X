@@ -1,0 +1,560 @@
+******************************************************************************************************************************************
+Callback Server API
+******************************************************************************************************************************************
+Notes:
+
+	- For the service only exists on my machine; still in dev. In other words, nothing for you to go against and test. I can work something if you wish.
+
+	- IP, Port and Prefix are subject to change.
+
+	- Concentrate on operations and parameters
+
+	- Questions/Comments/Suggestions welcome
+
+	
+******************************************************************************************************************************************
+******************************************************************************************************************************************
+Version log
+
+Version		Date		Comment
+
+1.9.1		9/7/2017	Added record statuses to documentation
+1.10		9/20/2017	Added operation checkdnisinuse
+1.11		11/05/2018	Added queuestarttime to addrecord
+
+******************************************************************************************************************************************
+******************************************************************************************************************************************
+Callback Record Statuses
+
+
+	NEW
+	INVALID
+	INACTIVE
+	PROCESSING
+	RETRY
+	REQUESTED
+	QUEUED
+	AGENTACKNOWLEDGED
+	AGENTABANDONED
+	DIALINGTARGET
+	COMPLETED
+	EXCEEDEDNUMBEROFATTEMPTS
+	IVR_FAILURE
+
+******************************************************************************************************************************************
+
+	Operation: addrecord
+	
+	Description: Add callback record to Callback Server
+	
+	Request:
+	
+		http://192.168.15.132:9000/callbackmanagement?
+
+
+		Parameters:
+
+			operation=addrecord
+			&id=12346
+			&dnis=1233457
+			&targetcsq=Main
+			&origincsq=Main
+			&prompt=p1.wav
+			&sessionid=1300234
+			&implid=123123/6
+			&contactid=4455667788
+			&queuestarttime=123243242342
+			&language=en_US
+			&customvar1=<content>
+			&customvar2=<content>
+			&customvar3=<content>
+			&customvar4=<content>
+			&customvar5=<content>
+			
+	Response:
+
+		Success:
+
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>Record with id 12346  was added to the list.</Description>
+				<Code>0</Code>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>ERROR DESCRIPTION</Description>
+				<Code>-1</Code>
+			</Response>
+
+
+
+
+******************************************************************************************************************************************
+
+	Operation: updaterecord
+
+	Description: Update the state of a given record with given id
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=updaterecord&id=12346&status=STATUS&agentid=<agentid>
+
+
+		STATUS values:
+
+			REQUESTED		- Record reentry was accepted
+			QUEUED			- Record processing reached queue
+			AGENTACKNOWLEDGED	- Agent has acknowledged the callback
+			DIALINGTARGET		- In response to the agent having acknowledged the callback request, the system starts dialing the callback target number.
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>Record with id 12346 was updated to status DIALING</Description>
+				<Code>0</Code>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>ERROR DESCRIPTION</Description>
+				<Code>-1</Code>
+			</Response>
+
+
+******************************************************************************************************************************************
+
+	Operation: removerecord
+
+	Descritpion: Remove record with given id
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=removerecord&id=12346
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>Record with id 12346  was removed from the list.</Description>
+				<Code>0</Code>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>ERROR DESCRIPTION</Description>
+				<Code>-1</Code>
+			</Response>
+
+
+******************************************************************************************************************************************
+
+	Operation: getrecords
+
+	Description: Get a list of records in Callback Server
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=getrecords
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8">
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<callbackrecords>
+					<record>
+						<id>12370</id>
+						<contactid>4455667788</contactid>
+						<implid>123123/6</implid>
+						<sessionid>1300234</sessionid>
+						<dnis>1233457</dnis>
+						<origincsq>Support</origincsq>
+						<targetcsq>Main</targetcsq>
+						<prompt>p1.wav</prompt>
+						<requestdate>2/22/2017 5:07:42 PM</requestdate>
+						<status>NEW</status>
+						<language>en_US</language>
+						<customvar1></customvar1>
+						<customvar2></customvar2>
+						<customvar3></customvar3>
+						<customvar4></customvar4>
+						<customvar5></customvar5>
+					</record>
+				</callbackrecords>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>ERROR DESCRIPTION</Description>
+				<Code>-1</Code>
+			</Response>
+
+
+******************************************************************************************************************************************
+
+	Operation: checkdnisinuse
+
+	Description: Validate whether or not a callback record exists with a given DNIS
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=checkdnisinuse&dnis=xxxxxxxxxx
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<DNISInUse>true|false</DNISInUse>
+			</Response>
+
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+				<DNISInUse>false</DNISInUse>
+			</Response>
+
+******************************************************************************************************************************************
+
+	Oparation: checkserverstatus
+
+	Description: Returns status of Callback Server
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=checkserverstatus
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<CallbackRequestsInMemory>4</CallbackRequestsInMemory>
+				<SystemTime>1/19/2017 2:16:36 PM</SystemTime>
+				<ServiceLastStarted>2/22/2017 5:37:58 PM</ServiceLastStarted>
+				<ProductVersion>1.0.0.100</ProductVersion>
+				<SettingsLastUpdate>dd/MM/yyyy HH:mm:ss</SettingsLastUpdate>
+				<UCCXMasterNode>10.1.10.160</UCCXMasterNode>
+			</Response>
+
+
+		Failure:
+
+			Anything else......
+
+******************************************************************************************************************************************
+
+	Oparation: checkcsqstatus
+
+	Description: Returns status of Callback Server
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=checkcsqstatus&csq=<CSQ_NAME>
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<AcceptingCallbacks>true|false</AcceptingCallbacks>
+				<SettingsLastUpdate>dd/MM/yyyy HH:mm:ss</SettingsLastUpdate>
+			</Response>
+
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+				<AcceptingCallbacks>false</AcceptingCallbacks>
+			</Response>
+		
+******************************************************************************************************************************************
+
+	Oparation: authenticateuser
+
+	Description: 
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=authenticateuser&token=<base64_Encoded_(username:password)>
+		
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<Authenticated>true|false</Authenticated>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+				<Authenticated>false</Authenticated>
+			</Response>
+
+******************************************************************************************************************************************
+
+	Oparation: getsettings
+
+	Description: 
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=getsettings
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<Settings>
+					<callback>
+						<csqs>
+							......
+						</csqs>
+					</callback>
+				</Settings>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+			</Response>
+			
+******************************************************************************************************************************************
+
+	Oparation: setsettings
+
+	Description: 
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=setsettings
+		
+		Body of the request should contain the XML settings
+		
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+			</Response>
+
+******************************************************************************************************************************************
+
+	Oparation: getcsqlist
+
+	Description: 
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=getcsqlist
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<csqs>
+					.........
+				</csqs>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+			</Response>
+
+
+******************************************************************************************************************************************
+
+	Oparation: getcontactpositionoffset
+
+	Description: 
+
+	Request:
+
+		http://192.168.15.132:9000/callbackmanagement?operation=getcontactpositionoffset&contactid=<UCCX_CONTACT_ID>&targetcsq=<TARGET_CSQ>
+
+	Response:
+
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+				<ContactPositionOffset>3</ContactPositionOffset>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+			</Response>
+
+
+******************************************************************************************************************************************
+Contact Data Collection
+******************************************************************************************************************************************			
+	Request: http://10.1.10.160:[PORT]/contactrealtimedata?token=<(ENCRYPTED_ADMIN_USER+ENCRYPTED_ADMIN_PASSWORD)with_all_non_alphanumeric_chars_removed>
+
+******************************************************************************************************************************************
+UCCX HTTP triggered applications
+******************************************************************************************************************************************
+	
+	Description: This call returns live data information for the given csq
+	
+	Request: http://10.1.10.160:9080/stats?CSQ=<CSQ_NAME>
+	
+	Return:
+	
+		<?xml version="1.0" encoding="UTF-8"?>
+		<CSQStats>
+			<CSQ name="Main">
+				<LoggedIn>-1</LoggedIn>
+				<Talking>-1</Talking>
+				<Ready>-1</Ready>
+				<NotReady>-1</NotReady>
+				<Work>-1</Work>
+				<CallsWaiting>-1</CallsWaiting>
+				<LongestQueueTime>-1</LongestQueueTime>
+				<TotalInQueue>0</TotalInQueue>
+			</CSQ>
+		</CSQStats>
+	
+	
+	Description: This returns the csq for which the contact that has the given sessionid is queued for
+	
+	Request: http://10.1.10.160:9080/stats?sessionid=XXXXXXXXXX
+	
+	Return: 
+	
+		Response if session is found
+		
+		<?xml version="1.0" encoding="UTF-8"?>
+		<Response>
+			<Code>0</Code>
+			<csq>[CSQ_NAME]</csq>
+		</Response>
+		
+		Response if session is not found
+		
+		<?xml version="1.0" encoding="UTF-8"?>
+		<Response>
+			<Code>0</Code>
+			<csq></csq>
+		</Response>
+		
+		Response if any error occurs
+		
+		<?xml version="1.0" encoding="UTF-8"?>
+		<Response>
+			<Code>-1</Code>
+			<csq></csq>
+		</Response>
+		
+		
+	Description: This call is used by CallbackServer to 'send' a callback request back to UCCX
+	
+	Request: http://10.1.10.160:9080/WHATEVER_PREFIX?
+	
+
+		Parameters:
+
+			id=12346
+			&dnis=1233457
+			&targetcsq=Main
+			&prompt=p1.wav
+			&sessionid=1300234
+			&implid=123123/6
+			&contactid=4455667788
+			&language=en_US
+			&customvar1=<content>
+			&customvar2=<content>
+			&customvar3=<content>
+			&customvar4=<content>
+			&customvar5=<content>
+
+	Return: 
+	
+		Success:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description></Description>
+				<Code>0</Code>
+			</Response>
+
+		Failure:
+
+			<?xml version="1.0" encoding="UTF-8"?>
+			<Response>
+				<Description>DEBUG INFO</Description>
+				<Code>-1</Code>
+			</Response>

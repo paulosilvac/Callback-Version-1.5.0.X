@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Response>
+	<Description></Description>
+	<Code>0</Code>
+	<Settings>
+		<UCCX>
+			<IP></IP>
+			<AuthorizationToken></AuthorizationToken>
+		</UCCX>
+		<callback>
+			<csqs>
+			
+				<CSQ name="Default">
+				
+					<CallbackEnabled>true</CallbackEnabled>
+					<CallerRecording>true</CallerRecording>
+					<AppServerURLPrefix>http://10.10.10.197:9080/test?</AppServerURLPrefix>
+					<EmailAlerts>true</EmailAlerts>
+					<AdminEmail>admin@somewhere.com</AdminEmail>
+					<CallerIDVerify>true</CallerIDVerify>
+					<AbandonCallback>true</AbandonCallback>
+					<AbandonCBMinQTime>120</AbandonCBMinQTime>
+					<AbandonCBMinInterCallTime>600</AbandonCBMinInterCallTime>
+					<CBQueue csq="csq2" overflowtime="60"></CBQueue>
+					<CBQueue csq="csq3" overflowtime="60"></CBQueue>
+					<AcceptCallbacksTimeframe>
+						<Begin>08:00:00</Begin>
+						<End>19:00:00</End>
+					</AcceptCallbacksTimeframe>
+					
+					<CallbackReentryAlgorithm>
+					
+						<TotalInQueue Enabled="true" Operation="SmallerThanOrEqualTo"  Value="50"></TotalInQueue>
+						<CSQAgentsReady Enabled="false" Operation="BiggerThanOrEqualTo"  Value="1"></CSQAgentsReady>
+						<CSQCallsWaiting Enabled="true" Operation="SmallerThanOrEqualTo"  Value="10"></CSQCallsWaiting>
+					
+						<CallbackProcessingTimeframe>
+							<Begin>09:00:00</Begin>
+							<End>20:00:00</End>
+						</CallbackProcessingTimeframe>
+						
+						<EndOfDayPurgeCallbackRequests>false</EndOfDayPurgeCallbackRequests>
+						
+					</CallbackReentryAlgorithm>
+				
+				</CSQ>
+				
+				<CSQ name="csq10">
+					<CallbackEnabled>false</CallbackEnabled>
+				</CSQ>
+				
+				<CSQ name="csq1">
+				
+					<CallbackEnabled>true</CallbackEnabled>
+					<CallerRecording>true</CallerRecording>
+					<AppServerURLPrefix>http://10.10.10.197:9080/test?</AppServerURLPrefix>
+					<EmailAlerts>true</EmailAlerts>
+					<AdminEmail>admin@somewhere.com</AdminEmail>
+					<CallerIDVerify>true</CallerIDVerify>
+					<AbandonCallback>true</AbandonCallback>
+					<AbandonCBMinQTime>120</AbandonCBMinQTime>
+					<AbandonCBMinInterCallTime>600</AbandonCBMinInterCallTime>
+					<CBQueue csq="csq2" overflowtime="60"/>
+					<CBQueue csq="csq3" overflowtime="60"/>
+					<AcceptCallbacksTimeframe>
+						<Begin>08:00:00</Begin>
+						<End>19:00:00</End>
+					</AcceptCallbacksTimeframe>
+					
+					<CallbackReentryAlgorithm>
+					
+						<TotalInQueue Enabled="true" Operation="SmallerThanOrEqualTo"  Value="50"></TotalInQueue>
+						<CSQAgentsReady Enabled="false" Operation="BiggerThanOrEqualTo"  Value="1"></CSQAgentsReady>
+						<CSQCallsWaiting Enabled="true" Operation="SmallerThanOrEqualTo"  Value="10"></CSQCallsWaiting>
+					
+						<CallbackProcessingTimeframe>
+							<Begin>09:00:00</Begin>
+							<End>20:00:00</End>
+						</CallbackProcessingTimeframe>
+						
+						<EndOfDayPurgeCallbackRequests>false</EndOfDayPurgeCallbackRequests>
+						
+					</CallbackReentryAlgorithm>
+					
+				</CSQ>
+				
+			</csqs>
+		</callback>
+	</Settings>
+</Response>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<response>
+<code>0</code>
+<description/>
+<contacts/>
+<contact>
+<contactid>26270</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394666/2</implid>
+<starttime>10:57:53</starttime>
+<duration>0:2:49</duration>
+<application>Operations-FM</application>
+<task>39000866968</task>
+<session>76000330007</session>
+<queuedfor>[STRDA1]]</queuedfor>
+</contact>
+<contact>
+<contactid>26288</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394705/2</implid>
+<starttime>10:59:30</starttime>
+<duration>0:1:12</duration>
+<application>Operations-FM</application>
+<task>39000867027</task>
+<session>76000330024</session>
+<queuedfor>[SPET]]</queuedfor>
+</contact>
+<contact>
+<contactid>26275</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394680/2</implid>
+<starttime>10:58:20</starttime>
+<duration>0:2:22</duration>
+<application>Operations-FM</application>
+<task>39000866986</task>
+<session>76000330011</session>
+<queuedfor>[RAIJE]]</queuedfor>
+</contact>
+<contact>
+<contactid>26234</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394596/2</implid>
+<starttime>10:56:08</starttime>
+<duration>0:4:34</duration>
+<application>Operations-FM</application>
+<task>39000866889</task>
+<session>76000329969</session>
+<queuedfor>[SPET]]</queuedfor>
+</contact>
+<contact>
+<contactid>26278</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394690/2</implid>
+<starttime>10:58:36</starttime>
+<duration>0:2:6</duration>
+<application>Operations-FM</application>
+<task>39000866995</task>
+<session>76000330014</session>
+<queuedfor>[LYNCR]]</queuedfor>
+</contact>
+<contactid>26250</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394680/2</implid>
+<starttime>10:58:20</starttime>
+<duration>0:2:22</duration>
+<application>Operations-FM</application>
+<task>39000866986</task>
+<session>76000330011</session>
+<queuedfor>[RAIJE]]</queuedfor>
+</contact>
+<contactid>26330</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>12394680/2</implid>
+<starttime>10:58:20</starttime>
+<duration>0:2:22</duration>
+<application>Operations-FM</application>
+<task>39000866986</task>
+<session>76000330011</session>
+<queuedfor>[RAIJE]]</queuedfor>
+</contact>
+<contact>
+<contactid>26284</contactid>
+<type>Cisco JTAPI Call</type>
+<implid>229532/1</implid>
+<starttime>10:59:18</starttime>
+<duration>0:1:24</duration>
+<application>Operations-FM</application>
+<task>39000867021</task>
+<session>76000330021</session>
+<queuedfor>[GREJ]]</queuedfor>
+</contact>
+</response>

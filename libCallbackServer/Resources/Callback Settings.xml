@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<callback>
+  <csqs>
+    <csq name="Default">
+
+      <CallbackEnabled>false</CallbackEnabled>
+      <CallerRecording>false</CallerRecording>
+      <RetentionPeriod>7</RetentionPeriod>
+      <AppServerURLPrefix>@CALLBACKSERVERAPI@</AppServerURLPrefix>
+      <EmailAlerts>false</EmailAlerts>
+      <AdminEmail></AdminEmail>
+      <CallerIDVerify>false</CallerIDVerify>
+      <AbandonCallback>false</AbandonCallback>
+      <AbandonCBMinQTime>120</AbandonCBMinQTime>
+      <AbandonCBMinInterCallTime>600</AbandonCBMinInterCallTime>
+      <CBQueue csq="" overflowtime="60"></CBQueue>
+      <CBQueue csq="" overflowtime="60"></CBQueue>
+      <AcceptCallbacksTimeframe>
+        <Begin>08:00:00</Begin>
+        <End>17:00:00</End>
+      </AcceptCallbacksTimeframe>
+
+      <CallbackOfferedAlgorithm>
+
+        <AgentsLoggedIn Enabled="false" Operation="BiggerThanOrEqualTo" Value="0"></AgentsLoggedIn>
+        <CallsWaiting Enabled="false" Operation="SmallerThanOrEqualTo" Value="10"></CallsWaiting>
+        <LongestQueueTime Enabled="false" Operation="BiggerThanOrEqualTo" Value="20"></LongestQueueTime>
+        <CallbackRequests Enabled="false" Operation="SmallerThanOrEqualTo" Value="5"></CallbackRequests>
+
+      </CallbackOfferedAlgorithm>
+
+      <CallbackReentryAlgorithm>
+
+        <TotalInQueue Enabled="false" Operation="SmallerThanOrEqualTo" Value="5"></TotalInQueue>
+        <CSQAgentsReady Enabled="false" Operation="BiggerThanOrEqualTo" Value="0"></CSQAgentsReady>
+        <CSQCallsWaiting Enabled="false" Operation="SmallerThanOrEqualTo" Value="5"></CSQCallsWaiting>
+
+        <CallbackProcessingTimeframe>
+          <Begin>08:00:00</Begin>
+          <End>17:00:00</End>
+        </CallbackProcessingTimeframe>
+
+        <EndOfDayPurgeCallbackRequests>false</EndOfDayPurgeCallbackRequests>
+
+      </CallbackReentryAlgorithm>
+
+    </csq>
+  </csqs>
+</callback>

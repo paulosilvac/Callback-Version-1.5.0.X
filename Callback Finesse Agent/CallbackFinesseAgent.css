@@ -1,0 +1,193 @@
+body
+{
+	padding:0px;
+	margin:0px;
+}
+
+header
+{
+	background: linear-gradient(to bottom, rgb(199, 199, 199), rgb(159, 159, 159));
+	border-radius: 5px 5px 5px 5px;
+	height: 40px;
+	overflow: hidden;
+}
+
+.container 
+{ 
+	display:table;
+	white-space: nowrap;
+} 
+
+.container .row 
+{ 
+	display:table-row;
+} 
+.container .row .rowcell 
+{ 
+	display:table-cell;
+	height: 40px;
+} 
+
+#title
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	padding: 10px;
+	margin: 0px;
+	
+	white-space: nowrap;
+}
+
+.vertical-line
+{
+	border-left: 2px solid grey;
+	/* display: inline; */
+	/* height: 30%; */
+	/* padding: 5px 5px 5px 5px; */
+	/* margin: 5px 20px 0px 0px; */
+}
+
+#_dnis
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	/* text-align: left; */
+	padding: 10px 0px 0px 10px;
+}
+
+#_dnisvalue
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	text-align: left;
+	/* vertical-align: middle; */
+	padding: 0px 0px 0px 5px;
+	height: 25px;
+	width: 130px;
+	margin: 0px 10px 0px 5px;
+}
+
+#_targetcsq
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	text-align: left;
+	padding: 10px 0px 0px 10px;
+
+	/* background: red; */
+}
+
+#_targetcsqvalue
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	text-align: left;
+	padding: 10px 10px 0px 10px;
+	margin: 0px 10px 0px 5px;
+	width: 120px;
+	/* background: yellow; */
+}
+
+#_attempts
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	/* text-align: left; */
+	padding: 10px 0px 0px 10px;
+
+	/* background: red; */
+}
+
+#_attemptsvalue
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	text-align: right;
+	width: 20px;
+	padding: 10px 10px 0px 10px;
+	/* background: yellow; */
+}
+
+#_requeuecode
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	text-align: left;
+	padding: 10px 0px 0px 10px;
+
+	/* background: yellow; */
+}
+
+#_requeuecodevalue
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	text-align: left;
+	margin: 5px 5px 5px 5px;
+
+	/* background: yellow; */
+}
+
+#btnRequeue
+{
+	background-color: rgb(18, 173, 165); /* Green */
+    border: none;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+   
+    font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	height: 30px;
+	margin: 5px 5px 5px 0px;
+}
+
+#btnRequeue:hover
+{
+	background-color: rgb(253, 184, 18); /* Green */
+    border: none;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	height: 30px;
+	margin: 5px 5px 5px 0px;
+}
+
+#btnRequeue:active
+{
+	background-color: rgb(235, 210, 156); /* Green */
+    border: none;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+	text-decoration: none;
+	
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	height: 30px;
+	margin: 5px 5px 5px 0px;
+}
+
+#logo_container
+{
+	width: 100%;
+	vertical-align: top;
+}
+
+img.logo
+{
+	width: 130px;
+	margin:0px 0px 0px 0px;
+	padding: 3px 5px 0px 5px;
+	float: right;
+}

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationSettings>
+  <XPVServer IP="10.0.141.88" DataPort="5000" SettingsPort="6000"></XPVServer>
+  <XPVDataCollection DataPort="5500" RefreshInterval="5000"></XPVDataCollection>
+  <SettingsDatabaseConnectionString Value="Ji2NTLqlKYz4JJht6403DzJX0wmWS+8qthxQ2Z3QZg5acuddRHQ3nCplIwQEvGADzh/4i6YrzUieJCtiS4FR/yJvyngreN7/3CvdxAJ2LKQxnGsar1Oxav39KnPHNJyTcKnhjeEmRYE="></SettingsDatabaseConnectionString>
+  <UCCX DataSourceName="UCCX85" IP="172.16.100.31" RTRPort="6999"></UCCX>
+  <UCCXNode1 DataSourceName="UCCX85" IP="172.16.100.31" RTRPort="6999"></UCCXNode1>
+  <UCCXNode2 DataSourceName="UCCX85" IP="172.16.100.32" RTRPort="6999"></UCCXNode2>
+  <DataCollectionTimers AgentListRefreshInterval="30" CSQListRefreshInterval="60"></DataCollectionTimers>
+  <WebServer UserName="xpvdownloads" Password="xpvdownloads" Port="8080"></WebServer>
+  <Debug Debug="True" DebugLevel="Verbose" RetainUnit="Files" RetainValue="100"></Debug>
+</ApplicationSettings>

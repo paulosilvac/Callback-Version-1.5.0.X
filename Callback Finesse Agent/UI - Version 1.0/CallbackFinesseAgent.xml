@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Module>
+    <ModulePrefs 	title="Callback Finesse Agent"
+					description="Callback Finesse Agent"
+					thumbnail="http://localhost:8080/"
+					scrolling="true">
+
+        <Require feature="settitle" />
+        <Require feature="dynamic-height" />
+        <Require feature="pubsub-2" />
+        <Require feature="setprefs" />
+		<Require feature="loadingindicator" />
+        <Param name="manual-dismiss">false</Param>
+        <Param name="loading-timeout">10</Param>
+		
+    </ModulePrefs>
+
+    <Content type="html">
+        <![CDATA[
+            <!DOCTYPE html>
+<html>
+
+<!-- jQuery -->
+<script type="text/javascript" src="/desktop/assets/js/jquery.min.js"></script>
+           
+<!-- Finesse Library -->
+<script type="text/javascript" src="/desktop/assets/js/finesse.js"></script>
+
+<!-- Styling -->
+<link rel="stylesheet" href="CallbackFinesseAgent.css" type="text/css" />
+
+<!-- Gadget Business Logic -->
+<script type="text/javascript" src="CallbackFinesseAgent.js"></script>
+
+<body>
+
+<header>
+<span id="gadgetname">Callback Finesse Agent</span>
+</header>
+
+<section>
+
+    <div id="background">
+
+        <div id="leftpanel">
+
+            <div id="leftpanel_names">
+
+                <div id="_dnis">DNIS:</div>
+                <div id="_targetcsq">Target CSQ:</div>
+                <div id="_requeuecode">Requeue Code:</div>
+                <!-- button id="btnFakeCallback" type="button" onclick="btnFakeIncomingCall_onClick()">Fake Callback</button -->
+            </div>
+
+            <div id="leftpanel_values">
+
+                <input type="text" id="_dnisvalue" placeholder="" maxlength="10" size="11"></input>
+                <div id="_targetcsqvalue"></div>
+                <select name="_requeuecodevalue" id="_requeuecodevalue" style="width: 273px;" onchange=""></select>
+                <div id="_actionbuttons">
+                    <button id="btnDispose" type="button" onclick="btnDispose_onClick()">Dispose</button>
+                    <button id="btnRequeue" type="button" onclick="btnRequeue_onClick()">Requeue</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+</section>
+
+</body>
+
+</html>
+            <script type="text/javascript">
+                gadgets.HubSettings.onConnect = function () { finesse.modules.CallbackFinesseAgent.init(); };
+            </script>
+        ]]>
+    </Content>
+</Module>

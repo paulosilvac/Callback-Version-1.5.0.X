@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<callback>
+	<csqs>	
+		<CSQ name="Default">	
+			<CallbackEnabled>true<CallbackEnabled>
+			<CallerRecording>true</CallerRecording>
+			<AppServerURLPrefix>http://10.10.10.197:9080/test?</AppServerURLPrefix>
+			<EmailAlerts>true</EmailAlerts>
+			<AdminEmail>admin@somewhere.com</AdminEmail>
+			<CallerIDVerify>true</CallerIDVerify>
+			<AbandonCallback>true</AbandonCallback>
+			<AbandonCBMinQTime>120</AbandonCBMinQTime>
+			<AbandonCBMinInterCallTime>600</AbandonCBMinInterCallTime>
+			<CBQueue csq="csq2" overflowtime="60"/>
+			<CBQueue csq="csq3" overflowtime="60"/>
+		</CSQ>
+		<CSQ name="csq10">
+			<CallbackEnabled>false<CallbackEnabled>
+		</CSQ>
+		<CSQ name="csq1">
+			<CallbackEnabled>true<CallbackEnabled>
+			<CallerRecording>true</CallerRecording>
+			<AppServerURLPrefix>http://10.10.10.197:9080/test?</AppServerURLPrefix>
+			<EmailAlerts>true</EmailAlerts>
+			<AdminEmail>admin@somewhere.com</AdminEmail>
+			<CallerIDVerify>true</CallerIDVerify>
+			<AbandonCallback>true</AbandonCallback>
+			<AbandonCBMinQTime>120</AbandonCBMinQTime>
+			<AbandonCBMinInterCallTime>600</AbandonCBMinInterCallTime>
+			<CBQueue csq="csq2" overflowtime="60"/>
+			<CBQueue csq="csq3" overflowtime="60"/>
+		</CSQ>
+		<CSQ name="csq4">
+			<CallbackEnabled>true<CallbackEnabled>
+			<CallerRecording>true</CallerRecording>
+			<AppServerURLPrefix>http://10.10.10.197:9080/test?</AppServerURLPrefix>
+			<EmailAlerts>true</EmailAlerts>
+			<AdminEmail>admin@somewhere.com</AdminEmail>
+			<CallerIDVerify>true</CallerIDVerify>
+			<AbandonCallback>true</AbandonCallback>
+			<AbandonCBMinQTime>120</AbandonCBMinQTime>
+			<AbandonCBMinInterCallTime>600</AbandonCBMinInterCallTime>
+			<CBQueue csq="csq5" overflowtime="60"/>
+			<CBQueue csq="csq6" overflowtime="60"/>
+		</CSQ>
+	</csqs>
+</callback>

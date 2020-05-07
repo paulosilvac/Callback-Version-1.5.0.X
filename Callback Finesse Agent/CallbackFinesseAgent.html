@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<!-- jQuery -->
+<script type="text/javascript" src="/desktop/assets/js/jquery.min.js"></script>
+           
+<!-- Finesse Library -->
+<script type="text/javascript" src="/desktop/assets/js/finesse.js"></script>
+
+<!-- Styling -->
+<link rel="stylesheet" href="CallbackFinesseAgent.css" type="text/css" />
+
+<!-- Gadget Business Logic -->
+<script type="text/javascript" src="CallbackFinesseAgent.js"></script>
+
+<body>
+
+<header>
+    
+    <div class="container">
+
+        <div class="row">
+
+            <div class="rowcell" id="title">Callback Requeue</div>
+            
+            <div class="rowcell vertical-line"></div>
+
+            <div class="rowcell" id="_dnis">Callback Number:</div>
+
+            <div class="rowcell">
+                <input type="text" id="_dnisvalue" placeholder="1234567890"></input>
+            </div>
+            
+            <div class="rowcell vertical-line"></div>
+
+            <div class="rowcell" id="_targetcsq">CSQ:</div>
+            <div class="rowcell" id="_targetcsqvalue">Service</div>
+
+            <div class="rowcell vertical-line"></div>
+
+            <div class="rowcell" id="_attempts">Attempts:</div>
+            <div class="rowcell" id="_attemptsvalue">0</div>
+
+            <div class="rowcell vertical-line"></div>
+
+            <div class="rowcell" id="_requeuecode">Requeue Code:</div>
+
+            <div class="rowcell">
+                <select name="_requeuecodevalue" id="_requeuecodevalue" onchange="">
+                    <option value="5">Voicemail</option>
+                    <option value="10">Wrong person</option>
+                    <option value="10">Busy</option>
+                    <option value="60">Callback in one hour</option>
+                </select>
+            </div>
+
+            <div class="rowcell">
+                <button id="btnRequeue" type="button" onclick="">Requeue</button>
+            </div>
+
+            <div class="rowcell"  id="logo_container">
+                <img class="logo" src="logo-white.png" alt="Company Logo">
+            </div>
+            
+        </div>
+
+    </div>
+    
+</header>
+
+<!-- <section>
+
+    <div id="background">
+
+        
+
+    </div>
+    
+</section> -->
+
+</body>
+
+</html>

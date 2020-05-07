@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<!-- jQuery -->
+<script type="text/javascript" src="/desktop/assets/js/jquery.min.js"></script>
+           
+<!-- Finesse Library -->
+<script type="text/javascript" src="/desktop/assets/js/finesse.js"></script>
+
+<!-- Styling -->
+<link rel="stylesheet" href="CallbackFinesseAgent.css" type="text/css" />
+
+<!-- Gadget Business Logic -->
+<script type="text/javascript" src="CallbackFinesseAgent.js"></script>
+
+<body>
+
+<header>
+    
+    <!-- span id="gadgetname">Callback Requeue</span -->
+
+    <div id="title">Callback Requeue</div>
+
+    <div class="vertical-line"></div>
+
+    <div id="_dnis">Callback Number:</div>
+    <input type="text" id="_dnisvalue" placeholder="1234567890"></input>
+
+    <div class="vertical-line"></div>
+
+    <div id="_targetcsq">CSQ:</div>
+    <div id="_targetcsqvalue">Service</div>
+
+    <div class="vertical-line"></div>
+
+    <div id="_attempts">Attempts:</div>
+    <div id="_attemptsvalue">0</div>
+
+    <div class="vertical-line"></div>
+
+    <div id="_requeuecode">Requeue Code:</div>
+    <select name="_requeuecodevalue" id="_requeuecodevalue" onchange="">
+        <option value="5">Voicemail</option>
+        <option value="10">Wrong person</option>
+        <option value="10">Busy</option>
+        <option value="60">Callback in one hour</option>
+    </select>
+
+    <button id="btnRequeue" type="button" onclick="">Requeue</button>
+    
+</header>
+
+<!-- <section>
+
+    <div id="background">
+
+        
+
+    </div>
+    
+</section> -->
+
+</body>
+
+</html>

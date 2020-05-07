@@ -1,0 +1,164 @@
+body
+{
+	padding:0px;
+	margin:0px;
+}
+
+header
+{
+	background: linear-gradient(to bottom, rgb(199, 199, 199), rgb(159, 159, 159));
+	border-radius: 5px 5px 5px 5px;
+	height: 40px;
+	overflow: hidden;
+}
+
+.container 
+{ 
+	display:table;
+	white-space: nowrap;
+} 
+
+.container .row 
+{ 
+	display:table-row;
+} 
+.container .row .rowcell 
+{ 
+	display:table-cell;
+}  
+
+#title
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: left;
+	padding: 10px;
+	white-space: nowrap;
+}
+
+#team
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	padding: 10px;
+}
+
+#supervisedteamsselector
+{
+	padding: 5px 0px 5px 0px;
+	width: 200px;
+}
+
+#containertotalcallswaiting
+{
+	border-radius: 5px;
+	border: 1px solid black;
+	background: rgb(243, 179, 41);
+	margin: 5px 0px 5px 5px;
+	display:inline-block;
+	width: 250px;
+}
+
+#lblTotalWaiting
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	padding: 5px 0px 5px 0px;
+	margin: 0px 0px 0px 10px;
+	display:inline-block;
+}
+
+#TotalWaitingValue
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	text-align: right;
+	padding: 5px 5px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	
+	float: right;
+}
+
+#containeroldestcallwaitingwaiting
+{
+	padding: 0px 0px 0px 10px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background: rgb(243, 179, 41);
+	margin: 5px 0px 5px 0px;
+	display:inline-block;
+	width: 300px;
+}
+
+#lblOldestWaitingDuration
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	padding: 5px 0px 5px 0px;
+	margin: 0px 0px 0px 0px;
+	display:inline-block;
+}
+
+#OldestWaitingDuration
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	text-align: left;
+	padding: 5px 5px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	
+	float: right;
+}
+
+#containeravgcallwaitingwaiting
+{
+	padding: 0px 0px 0px 10px;
+	border-radius: 5px;
+	border: 1px solid black;
+	background: rgb(243, 179, 41);
+	margin: 5px 0px 5px 0px;
+	display:inline-block;
+	
+	width: 300px;
+}
+
+#lblAvgWaitingDuration
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	padding: 5px 0px 5px 0px;
+	margin: 0px 0px 0px 0px;
+	display:inline-block;
+}
+
+#AvgWaitingDuration
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+
+	text-align: left;
+	padding: 5px 5px 0px 0px;
+	margin: 0px 0px 0px 0px;
+	
+	float: right;
+}
+
+#logo_container
+{
+	width: 100%;
+	vertical-align: middle;
+}
+
+img.logo
+{
+	width: 130px;
+	margin:0px 0px 0px 0px;
+	padding: 0px 5px 0px 5px;
+	float: right;
+}

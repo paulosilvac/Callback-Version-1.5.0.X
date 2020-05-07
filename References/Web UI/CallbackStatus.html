@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<link href="styles.css" rel="stylesheet" type="text/css">
+<script src="CallbackUI.js" type="text/javascript"></script>
+<html>
+   <head>
+
+   </head>
+   <body>
+			<!-- Page Header -->
+			<div class="logo" style='height:70px; position:relative'>
+				<img src="wfc_tran.gif" alt="Workflow Concepts logo" style='border-top:50px;' />
+				<div class="pageheader"><p style="color:#E2A002"><b>Callback Diagnostics</b></p>
+					<div id='logoutDivDiag' onclick='clearLoginDiagnostics();' style='display:none;cursor:pointer;color:white;width:250px;overflow:hidden;text-align:left;right:0;font-size:70%;position:absolute;top:30px'>log out</div> 
+				</div>
+			</div>
+			<!-- Callback Diagnostics Page -->
+			<div id="diagPage" style="position:relative;display:none">
+				<div class="pgHeading">Callback Session Information</div>
+				<fieldset style="height:40px;border:solid 2px gray"><legend> Refresh </legend>
+					<br/>
+						<img src="Information24.gif" onclick="getCallbackRecords();" style="cursor:pointer;top:-40px;left:20px;width:20px;position:relative;"/>
+						<div style="position:relative;top:-80px;">
+							<p id="p_statusDiag" style="position:relative;text-indent:40px;border-top:-50px"></p> 
+						</div>
+				</fieldset>
+				<br/>
+				<div style="position:relative;overflow:inherit;top:0px;border:2px solid gray">
+					<div style="position:relative;overflow:hidden;padding:10px;">
+						<table id="callbackRecords" style="width:100%;border:1px solid gray;border-collapse:collapse;">
+							<!-- Callback sessions show here -->
+						</table>
+					</div>
+				</div>
+				<br/><br/>
+			</div>
+			
+			<!-- Login Page -->
+			<br/>
+			<div id="loginPageDiag" style="position:relative;display:inherit;" width=100%>
+			<table cellspacing='0' width='100%' cellpadding='0' border='0' summary='Splash or Login Information'>
+				<tr style='background-color:#fdb913'>
+					<td style='padding-left:18px;vertical-align:middle'><div class='LoginProductName'>Callback Diagnostics</div><br/></td>
+					<td style='padding-left:64px;padding-right:18px;padding-top:18px;padding-bottom:18px;' align='right'>
+						<table summary='Login Field Information' style='background-color:#fdb913;'>
+							<tr>
+								<td class='LoginField'>Username</td></tr><tr><td class='LoginField'><input size='20' autocomplete='off' id='txtUsernameDiag' maxlength='128' type='text'/></td>
+							</tr>
+							<tr>
+								<td class='LoginField'>Password</td>
+							</tr>
+							<tr>
+								<td class='LoginField'><input size='20' autocomplete='off' id='txtPasswordDiag' maxlength='128' type='password' onkeypress="handleKeyPress(event)"/></td>
+							</tr>
+							<tr>
+								<td align='right'><button id="loginBtnDiag" onclick="authenticateDiagnostics()" class='LoginButton'>Login</button>&nbsp;&nbsp;<button id="resetBtnDiag" onclick="clearLoginDiagnostics()" class='LoginButton'>Reset</button></td>
+							</tr>
+						</table>
+					</td>
+					<td style='width:140px'></td>
+					<!--<td valign='top' width='150' style='background-color:#2F6681;'><img width='150' height='150' alt='Product Image' src='/appadmin/themes/VtgBlaf/masthead.jpg'/>
+					</td>-->
+				</tr>
+				<tr>
+					<td height='26px' colspan='2' style='font-size:1px;background-color:#FED166'>&nbsp;</td>
+					<td height='26px' style='font-size:1px;background-color:#FEE19A'>&nbsp;</td>
+				</tr>
+			</table>    
+			</div>
+	<script>
+
+		function getCallbackRecords()
+		{
+			var recordsXML = loadXMLDoc("http://" + gCallbackServerIP + "/callbackmanagement?operation=getrecords", ""); 
+			console.log("URL: " + "http://" + gCallbackServerIP + "/callbackmanagement?operation=getrecords");
+			// See if a code of "0" was returned (meaning success)
+			try
+			{
+				var result = recordsXML.getElementsByTagName("Code");
+				var code = result[0].childNodes[0].nodeValue;
+
+				if(code != "0")
+				{
+					// There was a problem loading the data
+					var errResult = recordsXML.getElementsByTagName("Description");
+					var desc = errResult[0].childNodes[0].nodeValue;
+					alert("Problem loading data. Error returned by the server: " + desc);
+					return false;
+				}
+			}
+			catch(err)
+			{
+				alert("Communication with the server may have been lost. Error description: " + err);
+				return false;
+			}
+			
+			try
+			{
+				var aRecords = recordsXML.getElementsByTagName("record");
+
+				var html = "";
+				var i = 0;
+				var id = "";
+				var sessionId = "";
+				var retry = "FORCERETRY";
+				
+				//Heading
+				html = "<caption style='border:1px solid #fdb913'>Callback Sessions</caption>";
+				html += "<tr><td class='csqTableHeadings'>Session Id</td>";
+				html += "<td class='csqTableHeadings'>DNIS</td>";
+				html += "<td class='csqTableHeadings'>CSQ</td>";
+				html += "<td class='csqTableHeadings'>Prompt</td>";
+				html += "<td class='csqTableHeadings'>Request Date</td>";
+				html += "<td class='csqTableHeadings'># of Attempts</td>";
+				html += "<td class='csqTableHeadings'>Agent ID</td>";
+				html += "<td class='csqTableHeadings'>Status</td>";
+				html += "<td class='csqTableHeadings'>Delete</td>";
+				html += "<td class='csqTableHeadings'>Retry</td></tr>";
+				
+				//Table data
+				for(i = 0; i < aRecords.length; i++)
+				{
+					id = aRecords[i].childNodes[0].textContent;
+					sessionId = aRecords[i].childNodes[3].textContent;
+
+					html += "<tr class='hover'><td class='tdCSQ'>" + id + "</td>"; // Session id
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[4].textContent + "</td>"; 			// DNIS
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[6].textContent + "</td>"; 			// CSQ
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[7].textContent + "</td>"; 			// Prompt
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[14].textContent + "</td>"; 		// Req date
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[16].textContent + "</td>"; 		// # of attempts
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[18].textContent + "</td>"; 		// Agent ID
+					html += "<td class='tdCSQ'>" + aRecords[i].childNodes[17].textContent + "</td>"; 		// Status
+					html += "<td style='text-align: center;'><img class='normal' src='delete.gif' onclick=deleteCallback('" + id + "') style='cursor:pointer;'/></td>"; 		     // Delete image
+					html += "<td style='text-align: center;'><img class='normal' src='reload.gif' onclick=setCallbackStatus('" + id + "') style='cursor:pointer;''/></td></tr>"; // Retry image
+				}
+				//alert(html);
+				document.getElementById("callbackRecords").innerHTML = html;
+			}
+			catch(err)
+			{
+				alert("There was an issue loading the Callback list. Error details: " + err);
+			}
+		} 
+ 
+		function deleteCallback(id)
+		{	
+			var continueDelete = confirm("Delete session id " + id + "?");
+			if(continueDelete == false)
+			{
+				getCallbackRecords();
+				return false;
+			}
+			console.log("deleteCallback: " + id);	
+			var isIE = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+			var xmlResp;
+
+			if (isIE)//
+			{
+				xhttp = new XMLHttpRequest();//xhttp = new ActiveXObject("Msxml2.XMLHTTP");//ActiveXObject("MSXML2.XMLHTTP.3.0");
+			}
+			else
+			{
+				xhttp = new XMLHttpRequest();
+			}
+
+			xhttp.open("GET", "http://" + gCallbackServerIP + "/callbackmanagement?operation=removerecord&id=" + id, false);
+
+			xhttp.send();
+
+			if(isIE)
+			{
+				var parser = new DOMParser();
+				xmlResp = parser.parseFromString(xhttp.responseText, 'text/xml');
+			}		
+			else
+				xmlResp = xhttp.responseXML;
+
+			try
+			{
+				var result = xmlResp.getElementsByTagName("Code");
+				var code = result[0].childNodes[0].nodeValue;
+				
+				if(code != "0")
+				{
+					// There was a problem saving the settings
+					var errResult = xmlResp.getElementsByTagName("Description");
+					var desc = errResult[0].childNodes[0].nodeValue;
+					alert("Problem changing status. Error returned by the server: " + desc);
+					return false;
+				}
+			}
+			catch(err)
+			{
+				alert("Communication with the server may have been lost. Error description: " + err);
+				return false;
+			}
+			getCallbackRecords();
+			return true;
+		}
+
+		function setCallbackStatus(id)
+		{
+			var continueRetry = confirm("Retry session id " + id + "?");
+			if(continueRetry == false)
+			{
+				getCallbackRecords();
+				return false;
+			}
+			var isIE = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+			var xmlResp;
+
+			if (isIE)//(window.ActiveXObject)
+			{
+				xhttp = new ActiveXObject("MSXML2.XMLHTTP.3.0");//ActiveXObject("Msxml2.XMLHTTP");
+			}
+			else
+			{
+				xhttp = new XMLHttpRequest();
+			}
+
+			xhttp.open("GET", "http://" + gCallbackServerIP + "/callbackmanagement?operation=updaterecord&id=" + id + "&status=FORCERETRY&agentid=", false);
+
+			xhttp.send();
+
+			if(isIE)
+			{
+				var parser = new DOMParser();
+				xmlResp = parser.parseFromString(xhttp.responseText, 'text/xml');
+			}		
+			else
+				xmlResp = xhttp.responseXML;
+
+			try
+			{
+				var result = xmlResp.getElementsByTagName("Code");
+				var code = result[0].childNodes[0].nodeValue;
+				
+				if(code != "0")
+				{
+					// There was a problem saving the settings
+					var errResult = xmlResp.getElementsByTagName("Description");
+					var desc = errResult[0].childNodes[0].nodeValue;
+					alert("Problem changing status. Error returned by the server: " + desc);
+					return false;
+				}
+			}
+			catch(err)
+			{
+				alert("Communication with the server may have been lost. Error description: " + err);
+				return false;
+			}
+			getCallbackRecords();
+			return true;
+		}
+		
+		function authenticateDiagnostics()
+		{
+			var isIE = !!navigator.userAgent.match(/Trident/g) || !!navigator.userAgent.match(/MSIE/g);
+
+			//This works fine in IE
+			var ahttp = new XMLHttpRequest();
+			var username = document.getElementById("txtUsernameDiag").value;
+			var pass = document.getElementById("txtPasswordDiag").value;
+
+			var url;
+			try
+			{
+				url = "http://" + gCallbackServerIP + "/callbackmanagement?operation=authenticateuser&token=" + btoa(username + ':' + pass);
+			}
+			catch(err)
+			{
+				alert("Please select 'Tools->Compatibility View' and REMOVE this site from the list. Also, be sure you are using IE 11 or higher. FireFox and Chrome will work as well.")
+			}
+			
+			var settingsLoaded = false;
+			
+			ahttp.open("GET", url, false);
+
+			try {ahttp.responseType = "msxml-document"} catch(err) {alert(err + " in Auth ");} // Helping IE11
+			try
+			{
+				ahttp.send("");
+			}
+			catch(err)
+			{
+				alert("Error sending authentication to server: " + err);
+			}
+
+			var xmlIn = ahttp.responseXML;
+			var txtIn = ahttp.responseText;
+
+			var txtAuth = "";
+			var xmlResp;
+
+			if(isIE)
+			{
+				var parser = new DOMParser();
+				xmlIn = parser.parseFromString(txtIn, 'text/xml');
+				xmlResp = xmlIn.getElementsByTagName("Authenticated");
+			}		
+			else
+			{
+				xmlResp = xmlIn.getElementsByTagName("Authenticated");
+			}
+			try
+			{
+				var result = xmlIn.getElementsByTagName("Code");
+				var code = result[0].childNodes[0].nodeValue;
+				if(code == "-1")
+				{
+					// There was a problem loading the settings
+					var errResult = xmlIn.getElementsByTagName("Description");
+					var desc = errResult[0].childNodes[0].nodeValue;
+					alert("Problem when attempting to authenticate. Error returned by the server: " + desc);
+					return false;
+				}
+				if(code == "-2")
+				{
+					// UCCX communication not established
+					var errResult = xmlIn.getElementsByTagName("Description");
+					var desc = errResult[0].childNodes[0].nodeValue;
+					alert("UCCX communications not yet established. Please try again in 30 seconds. Message returned by the server: " + desc);
+					return false;
+				}
+			}
+			catch(err)
+			{
+				alert("Communication with the server may have been lost. Error description: " + err);
+				return false;
+			}
+			
+			txtAuth = xmlResp[0].childNodes[0].nodeValue;
+
+			if(txtAuth.toLowerCase() == "true")
+			{
+				// Hide/show as needed
+				document.getElementById("loginPageDiag").style.display = "none";
+				document.getElementById("diagPage").style.display = "inherit";
+				document.getElementById("logoutDivDiag").style.display = "inherit";
+				getCallbackRecords();
+			}
+			else
+			{
+				alert('<b>Authentication failure</b>');
+			}			
+		}
+		
+		function clearLoginDiagnostics()
+		{
+			document.getElementById("loginPageDiag").style.display = "inherit";
+			document.getElementById("diagPage").style.display = "none";
+			document.getElementById("txtUsernameDiag").value="";
+			document.getElementById("txtPasswordDiag").value="";
+			document.getElementById("logoutDivDiag").style.display = "none";
+		}
+		
+		function handleKeyPress(e)
+		{
+			var key=e.keyCode || e.which;
+			if (key==13)
+			{
+				authenticateDiagnostics();
+			}
+		}
+
+	</script>
+	</body>
+</html>

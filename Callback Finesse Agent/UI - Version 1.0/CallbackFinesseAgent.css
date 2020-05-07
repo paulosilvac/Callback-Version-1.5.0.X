@@ -1,0 +1,198 @@
+body
+{
+	padding:0;
+	margin:0;
+}
+
+header
+{
+	background: linear-gradient(to bottom, rgb(199, 199, 199), rgb(159, 159, 159));
+	border-radius: 5px 5px 0px 0px;
+	padding: 10px;
+	margin:0;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+}
+
+section
+{
+  	background: rgb(239, 239, 239);
+	border-radius: 0px 0px 5px 5px;
+	padding: 5px;
+	margin:0;
+}
+
+#background
+{
+	background: linear-gradient(to bottom, rgb(224, 224, 224), rgb(192, 192, 192));
+	border-radius: 0px 0px 5px 5px;
+}
+
+#leftpanel
+{
+	/* background: red; */
+	border: 1px solid rgb(0, 110, 105);
+	border-radius: 5px 5px 5px 5px;
+	height:110px;
+	width: 400px;
+	display: grid;
+	grid-template-columns: 29% auto;
+	grid-template-rows: 18% 18% 18% auto;
+}
+
+#leftpanel_names
+{
+	/* background: red; */
+	padding: 2px;
+}
+
+#leftpanel_values
+{
+	/* background: green; */
+	padding: 2px;
+}
+
+#_dnis
+{
+	text-align: right;
+	/* background: yellow; */
+	padding: 2px;
+}
+
+#_targetcsq
+{
+	text-align: right;
+	/* background: yellow; */
+	padding: 2px;
+}
+
+#_requeuecode
+{
+	text-align: right;
+	/* background: yellow; */
+	padding: 2px;
+}
+
+#_dnisvalue
+{
+	text-align: left;
+	/* background: yellow; */
+	padding: 2px;
+}
+
+#_targetcsqvalue
+{
+	text-align: left;
+	/* background: yellow; */
+	padding: 2px;
+	height: 20px;
+}
+
+#_requeuecodevalue
+{
+	text-align: left;
+	/* background: yellow; */
+	padding: 2px;
+}
+
+#_actionbuttons
+{
+	padding: 0px;
+	margin: 5px 0px  0px 0px;
+}
+
+#btnRequeue
+{
+	background-color: rgb(18, 173, 165); /* Green */
+    border: none;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-family: Arial, Helvetica, sans-serif;
+	font-size: 16px;
+	height: 30px;
+    width: 48%;
+    /* justify-self: right; */
+}
+
+#btnRequeue:hover
+{
+	background-color: rgb(253, 184, 18); /* Green */
+    border: none;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	width: 48%;
+	height: 30px;
+    /* justify-self: right; */
+}
+
+#btnRequeue:active
+{
+	background-color: rgb(235, 210, 156); /* Green */
+    border: none;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	width: 48%;
+	height: 30px;
+    /* justify-self: right; */
+}
+
+#btnDispose
+{
+	background-color: #c96e55; /* Green */
+    border: none;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	width: 48%;
+	height: 30px;
+    /* justify-self: right; */
+}
+
+#btnDispose:hover
+{
+	background-color: #a35945; /* Green */
+    border: none;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	width: 48%;
+	height: 30px;
+    /* justify-self: right; */
+}
+
+#btnDispose:active
+{
+	background-color: #b45945; /* Green */
+    border: none;
+    color: white;
+    border-radius: 6px;
+    text-align: center;
+    text-decoration: none;
+    /* display: inline-block; */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+	width: 48%;
+	height: 30px;
+    /* justify-self: right; */
+}

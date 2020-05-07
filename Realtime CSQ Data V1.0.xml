@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<CSQStats>
+	<CSQ name="">
+		<LoggedIn>-1</LoggedIn> 
+		<Talking>-1</Talking> 
+		<Ready>-1</Ready> 
+		<NotReady>-1</NotReady> 
+		<Work>-1</Work> 
+		<CallsWaiting>-1</CallsWaiting> 
+		<LongestQueueTime>-1</LongestQueueTime>
+		<TotalInQueue>0</TotalInQueue>
+	</CSQ>
+</CSQStats>
