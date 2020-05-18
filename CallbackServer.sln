@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "libCallbackServer", "libCallbackServer\libCallbackServer.csproj", "{C5B6F1F4-308F-452C-86E6-43BEFE3F44EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallbackServer", "CallbackServer\CallbackServer.csproj", "{E7D4B9C6-EE23-4C3C-9AED-E30A9F4BB84C}"
@@ -8,6 +10,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CallbackServerManager", "CallbackServerManager\CallbackServerManager.csproj", "{82202C58-DB6E-4EC0-9FE0-10BCE3E32334}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj", "{DEB829B8-01D0-42E2-98B3-F174D9779506}"
+	ProjectSection(AutomaticVersions) = postProject
+		UpdateAssemblyVersion = True
+		UpdateAssemblyFileVersion = True
+		UpdateAssemblyInfoVersion = True
+		AssemblyVersionSettings = None.None.None.DateStamp
+		AssemblyFileVersionSettings = None.None.None.DateStamp
+		AssemblyInfoVersionSettings = None.None.None.DateStamp
+		UpdatePackageVersion = False
+		AssemblyInfoVersionType = SettingsVersion
+		InheritWinAppVersionFrom = None
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contact Data Collection", "Contact Data Collection\Contact Data Collection.csproj", "{DC9C88C5-2A9D-41A3-8162-DF88C871E6CC}"
 EndProject
@@ -82,5 +95,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D8EDDADB-1399-4DDA-9872-492586895F59}
 	EndGlobalSection
 EndGlobal

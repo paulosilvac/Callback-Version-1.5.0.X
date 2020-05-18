@@ -40,13 +40,22 @@
             this.btnClose = new System.Windows.Forms.Button();
             this.tabSettings = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.ucUCCXInformation = new com.workflowconcepts.applications.uccx.ucUCCXInformation();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.ucDebugSettings = new com.workflowconcepts.applications.uccx.ucDebugSettings();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ucEmailSettings = new com.workflowconcepts.applications.uccx.ucEmailSettings();
             this.btnSave = new System.Windows.Forms.Button();
             this.grpbWebServer = new System.Windows.Forms.GroupBox();
+            this.ucWebServerSettings = new com.smi.ivr.proxyservices.manager.ucWebServerSettings();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabCallbackRecords = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.ucCallbackRecordsSettings = new com.workflowconcepts.applications.uccx.ucCallbackRecordsSettings();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.tabServices = new System.Windows.Forms.TabPage();
             this.btnGetCSQsRealtimeData = new System.Windows.Forms.Button();
             this.btnGetContactRealtimeData = new System.Windows.Forms.Button();
@@ -56,20 +65,11 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
-            this.tabCallbackRecords = new System.Windows.Forms.TabPage();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.ucUCCXInformation = new com.workflowconcepts.applications.uccx.ucUCCXInformation();
-            this.ucDebugSettings = new com.workflowconcepts.applications.uccx.ucDebugSettings();
-            this.ucEmailSettings = new com.workflowconcepts.applications.uccx.ucEmailSettings();
-            this.ucWebServerSettings = new com.smi.ivr.proxyservices.manager.ucWebServerSettings();
-            this.ucCallbackRecordsSettings = new com.workflowconcepts.applications.uccx.ucCallbackRecordsSettings();
             this.ucDataCollectionProcessInformation = new com.workflowconcepts.applications.uccx.ucDataCollectionProcessInformation();
             this.ucDataCollectionServiceController = new com.workflowconcepts.applications.uccx.ucWindowsServiceController();
             this.ucRealtimeProcessInformation = new com.workflowconcepts.applications.uccx.ucRealtimeProcessInformation();
             this.ucWindowsServiceController = new com.workflowconcepts.applications.uccx.ucWindowsServiceController();
+            this.pbCompanyLogo = new System.Windows.Forms.PictureBox();
             this.mnuMain.SuspendLayout();
             this.tabSettings.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -77,10 +77,10 @@
             this.groupBox1.SuspendLayout();
             this.grpbWebServer.SuspendLayout();
             this.tabControl.SuspendLayout();
-            this.tabServices.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).BeginInit();
             this.tabCallbackRecords.SuspendLayout();
             this.groupBox4.SuspendLayout();
+            this.tabServices.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // mnuMain
@@ -150,7 +150,7 @@
             // 
             // btnClose
             // 
-            this.btnClose.Location = new System.Drawing.Point(797, 480);
+            this.btnClose.Location = new System.Drawing.Point(798, 444);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 27);
             this.btnClose.TabIndex = 1;
@@ -163,14 +163,13 @@
             this.tabSettings.Controls.Add(this.groupBox3);
             this.tabSettings.Controls.Add(this.groupBox2);
             this.tabSettings.Controls.Add(this.groupBox1);
-            this.tabSettings.Controls.Add(this.btnSave);
             this.tabSettings.Controls.Add(this.grpbWebServer);
             this.tabSettings.Controls.Add(this.label3);
             this.tabSettings.Controls.Add(this.label1);
             this.tabSettings.Location = new System.Drawing.Point(4, 22);
             this.tabSettings.Name = "tabSettings";
-            this.tabSettings.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabSettings.Size = new System.Drawing.Size(854, 412);
+            this.tabSettings.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSettings.Size = new System.Drawing.Size(854, 369);
             this.tabSettings.TabIndex = 0;
             this.tabSettings.Text = "Settings";
             this.tabSettings.UseVisualStyleBackColor = true;
@@ -185,6 +184,14 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "UCCX Information";
             // 
+            // ucUCCXInformation
+            // 
+            this.ucUCCXInformation.Location = new System.Drawing.Point(3, 17);
+            this.ucUCCXInformation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucUCCXInformation.Name = "ucUCCXInformation";
+            this.ucUCCXInformation.Size = new System.Drawing.Size(390, 162);
+            this.ucUCCXInformation.TabIndex = 0;
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.ucDebugSettings);
@@ -194,6 +201,14 @@
             this.groupBox2.TabIndex = 11;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Debug";
+            // 
+            // ucDebugSettings
+            // 
+            this.ucDebugSettings.Location = new System.Drawing.Point(8, 15);
+            this.ucDebugSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucDebugSettings.Name = "ucDebugSettings";
+            this.ucDebugSettings.Size = new System.Drawing.Size(390, 79);
+            this.ucDebugSettings.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -205,9 +220,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Email Notifications";
             // 
+            // ucEmailSettings
+            // 
+            this.ucEmailSettings.Location = new System.Drawing.Point(6, 19);
+            this.ucEmailSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucEmailSettings.Name = "ucEmailSettings";
+            this.ucEmailSettings.Size = new System.Drawing.Size(390, 171);
+            this.ucEmailSettings.TabIndex = 9;
+            // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(753, 373);
+            this.btnSave.Location = new System.Drawing.Point(717, 444);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 27);
             this.btnSave.TabIndex = 4;
@@ -224,6 +247,14 @@
             this.grpbWebServer.TabIndex = 3;
             this.grpbWebServer.TabStop = false;
             this.grpbWebServer.Text = "Web Server";
+            // 
+            // ucWebServerSettings
+            // 
+            this.ucWebServerSettings.Location = new System.Drawing.Point(6, 19);
+            this.ucWebServerSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucWebServerSettings.Name = "ucWebServerSettings";
+            this.ucWebServerSettings.Size = new System.Drawing.Size(390, 81);
+            this.ucWebServerSettings.TabIndex = 0;
             // 
             // label3
             // 
@@ -250,8 +281,55 @@
             this.tabControl.Location = new System.Drawing.Point(12, 27);
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
-            this.tabControl.Size = new System.Drawing.Size(862, 438);
+            this.tabControl.Size = new System.Drawing.Size(862, 395);
             this.tabControl.TabIndex = 2;
+            // 
+            // tabCallbackRecords
+            // 
+            this.tabCallbackRecords.Controls.Add(this.groupBox4);
+            this.tabCallbackRecords.Controls.Add(this.label10);
+            this.tabCallbackRecords.Controls.Add(this.label9);
+            this.tabCallbackRecords.Location = new System.Drawing.Point(4, 22);
+            this.tabCallbackRecords.Name = "tabCallbackRecords";
+            this.tabCallbackRecords.Size = new System.Drawing.Size(854, 412);
+            this.tabCallbackRecords.TabIndex = 2;
+            this.tabCallbackRecords.Text = "Callback Records";
+            this.tabCallbackRecords.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.ucCallbackRecordsSettings);
+            this.groupBox4.Location = new System.Drawing.Point(32, 45);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(380, 100);
+            this.groupBox4.TabIndex = 17;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Callback Records";
+            // 
+            // ucCallbackRecordsSettings
+            // 
+            this.ucCallbackRecordsSettings.Location = new System.Drawing.Point(14, 17);
+            this.ucCallbackRecordsSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ucCallbackRecordsSettings.Name = "ucCallbackRecordsSettings";
+            this.ucCallbackRecordsSettings.Size = new System.Drawing.Size(390, 80);
+            this.ucCallbackRecordsSettings.TabIndex = 0;
+            // 
+            // label10
+            // 
+            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.label10.Location = new System.Drawing.Point(156, 24);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(688, 2);
+            this.label10.TabIndex = 3;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(19, 16);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(132, 13);
+            this.label9.TabIndex = 1;
+            this.label9.Text = "Callback Records Settings";
             // 
             // tabServices
             // 
@@ -345,93 +423,6 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "Callback Server Service Controller and Statistics";
             // 
-            // pbCompanyLogo
-            // 
-            this.pbCompanyLogo.Location = new System.Drawing.Point(15, 480);
-            this.pbCompanyLogo.Name = "pbCompanyLogo";
-            this.pbCompanyLogo.Size = new System.Drawing.Size(125, 37);
-            this.pbCompanyLogo.TabIndex = 3;
-            this.pbCompanyLogo.TabStop = false;
-            // 
-            // tabCallbackRecords
-            // 
-            this.tabCallbackRecords.Controls.Add(this.groupBox4);
-            this.tabCallbackRecords.Controls.Add(this.label10);
-            this.tabCallbackRecords.Controls.Add(this.label9);
-            this.tabCallbackRecords.Location = new System.Drawing.Point(4, 22);
-            this.tabCallbackRecords.Name = "tabCallbackRecords";
-            this.tabCallbackRecords.Size = new System.Drawing.Size(854, 412);
-            this.tabCallbackRecords.TabIndex = 2;
-            this.tabCallbackRecords.Text = "Callback Records";
-            this.tabCallbackRecords.UseVisualStyleBackColor = true;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(19, 16);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(132, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Callback Records Settings";
-            // 
-            // label10
-            // 
-            this.label10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.label10.Location = new System.Drawing.Point(156, 24);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(688, 2);
-            this.label10.TabIndex = 3;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.ucCallbackRecordsSettings);
-            this.groupBox4.Location = new System.Drawing.Point(32, 45);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(380, 100);
-            this.groupBox4.TabIndex = 17;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Callback Records";
-            // 
-            // ucUCCXInformation
-            // 
-            this.ucUCCXInformation.Location = new System.Drawing.Point(3, 17);
-            this.ucUCCXInformation.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ucUCCXInformation.Name = "ucUCCXInformation";
-            this.ucUCCXInformation.Size = new System.Drawing.Size(390, 162);
-            this.ucUCCXInformation.TabIndex = 0;
-            // 
-            // ucDebugSettings
-            // 
-            this.ucDebugSettings.Location = new System.Drawing.Point(8, 15);
-            this.ucDebugSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ucDebugSettings.Name = "ucDebugSettings";
-            this.ucDebugSettings.Size = new System.Drawing.Size(390, 79);
-            this.ucDebugSettings.TabIndex = 0;
-            // 
-            // ucEmailSettings
-            // 
-            this.ucEmailSettings.Location = new System.Drawing.Point(6, 19);
-            this.ucEmailSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ucEmailSettings.Name = "ucEmailSettings";
-            this.ucEmailSettings.Size = new System.Drawing.Size(390, 171);
-            this.ucEmailSettings.TabIndex = 9;
-            // 
-            // ucWebServerSettings
-            // 
-            this.ucWebServerSettings.Location = new System.Drawing.Point(6, 19);
-            this.ucWebServerSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ucWebServerSettings.Name = "ucWebServerSettings";
-            this.ucWebServerSettings.Size = new System.Drawing.Size(390, 81);
-            this.ucWebServerSettings.TabIndex = 0;
-            // 
-            // ucCallbackRecordsSettings
-            // 
-            this.ucCallbackRecordsSettings.Location = new System.Drawing.Point(14, 17);
-            this.ucCallbackRecordsSettings.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.ucCallbackRecordsSettings.Name = "ucCallbackRecordsSettings";
-            this.ucCallbackRecordsSettings.Size = new System.Drawing.Size(390, 80);
-            this.ucCallbackRecordsSettings.TabIndex = 0;
-            // 
             // ucDataCollectionProcessInformation
             // 
             this.ucDataCollectionProcessInformation.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
@@ -475,14 +466,23 @@
             this.ucWindowsServiceController.TabIndex = 8;
             this.ucWindowsServiceController.UseProcessInfo = false;
             // 
+            // pbCompanyLogo
+            // 
+            this.pbCompanyLogo.Location = new System.Drawing.Point(16, 444);
+            this.pbCompanyLogo.Name = "pbCompanyLogo";
+            this.pbCompanyLogo.Size = new System.Drawing.Size(125, 37);
+            this.pbCompanyLogo.TabIndex = 3;
+            this.pbCompanyLogo.TabStop = false;
+            // 
             // frmCallbackServerManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(886, 527);
+            this.ClientSize = new System.Drawing.Size(886, 500);
             this.Controls.Add(this.pbCompanyLogo);
             this.Controls.Add(this.tabControl);
             this.Controls.Add(this.btnClose);
+            this.Controls.Add(this.btnSave);
             this.Controls.Add(this.mnuMain);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -500,12 +500,12 @@
             this.groupBox1.ResumeLayout(false);
             this.grpbWebServer.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
-            this.tabServices.ResumeLayout(false);
-            this.tabServices.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).EndInit();
             this.tabCallbackRecords.ResumeLayout(false);
             this.tabCallbackRecords.PerformLayout();
             this.groupBox4.ResumeLayout(false);
+            this.tabServices.ResumeLayout(false);
+            this.tabServices.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbCompanyLogo)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

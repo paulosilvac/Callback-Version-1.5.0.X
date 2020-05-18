@@ -467,6 +467,11 @@ namespace com.workflowconcepts.applications.uccx
                                 try
                                 {
                                     _MaximumNumberOfDays = int.Parse(reader.GetAttribute("MaximumNumberOfDays"));
+
+                                    if(_MaximumNumberOfDays < 0)
+                                    {
+                                        _MaximumNumberOfDays = Constants.MAXIMUM_NUMBER_OF_DAYS;
+                                    }
                                 }
                                 catch
                                 {
@@ -491,7 +496,7 @@ namespace com.workflowconcepts.applications.uccx
                                 {
                                     _MinimumIntervalBetweenRetries = int.Parse(reader.GetAttribute("MinimumIntervalBetweenRetries"));
 
-                                    if (_MinimumIntervalBetweenRetries < 0)
+                                    if (_MinimumIntervalBetweenRetries <= 0)
                                     {
                                         _MinimumIntervalBetweenRetries = Constants.MINIMUM_INTERVAL_BETWEEN_RETRIES;
                                     }
@@ -626,8 +631,8 @@ namespace com.workflowconcepts.applications.uccx
 
                 _XMLWriter.WriteStartElement("CallbackRecords");
                 _XMLWriter.WriteAttributeString("MaximumNumberOfDays", _MaximumNumberOfDays.ToString());
-                _XMLWriter.WriteAttributeString("MaximumNumberOfAttempts", _MaximumNumberOfDays.ToString());
-                _XMLWriter.WriteAttributeString("MinimumIntervalBetweenRetries", _MaximumNumberOfDays.ToString());
+                _XMLWriter.WriteAttributeString("MaximumNumberOfAttempts", _MaximumNumberOfAttempts.ToString());
+                _XMLWriter.WriteAttributeString("MinimumIntervalBetweenRetries", _MinimumIntervalBetweenRetries.ToString());
                 _XMLWriter.WriteFullEndElement();
 
                 _XMLWriter.WriteStartElement("API");

@@ -410,11 +410,29 @@ namespace com.workflowconcepts.applications.uccx
             //Callback Records
             if (this.ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfDays.Text.Length == 0)
             {
-                MessageBox.Show("Invalid value for Maximum Number of Days." + Environment.NewLine + "Application won't work properly.", System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Invalid value for Maximum Number of Days." + Environment.NewLine + "Default value will be assumed.", System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 tabControl.SelectedIndex = 0;
                 ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfDays.Text = Constants.MAXIMUM_NUMBER_OF_DAYS.ToString();
                 ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfDays.Focus();
                 ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfDays.SelectAll();
+            }
+
+            if (this.ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Text.Length == 0)
+            {
+                MessageBox.Show("Invalid value for Maximum Number of Attempts." + Environment.NewLine + "Default value will be assumed.", System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tabControl.SelectedIndex = 0;
+                ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Text = Constants.MAXIMUM_NUMBER_OF_ATTEMPTS.ToString();
+                ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Focus();
+                ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.SelectAll();
+            }
+
+            if (this.ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Text.Length == 0)
+            {
+                MessageBox.Show("Invalid value for Minimum Interval Between Retries." + Environment.NewLine + "Default value will be assumed.", System.Windows.Forms.Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                tabControl.SelectedIndex = 0;
+                ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Text = Constants.MINIMUM_INTERVAL_BETWEEN_RETRIES.ToString();
+                ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Focus();
+                ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.SelectAll();
             }
 
             try
@@ -445,6 +463,8 @@ namespace com.workflowconcepts.applications.uccx
                 _ApplicationSettings.UCCXMaxIVRPortUsagePercent = ucUCCXInformation.txtMaxIVRPortUsagePercent.Text;
 
                 _ApplicationSettings.MaximumNumberOfDays = int.Parse(ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfDays.Text);
+                _ApplicationSettings.MaximumNumberOfAttempts = int.Parse(ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Text);
+                _ApplicationSettings.MinimumIntervalBetweenRetries = int.Parse(ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Text);
 
                 _ApplicationSettings.Debug = this.ucDebugSettings.ckbDebugEnabled.Checked;
                 _ApplicationSettings.DebugLevel = this.ucDebugSettings.cbDebugLevel.Text;
@@ -668,6 +688,8 @@ namespace com.workflowconcepts.applications.uccx
                         ucUCCXInformation.txtMaxIVRPortUsagePercent.Text = _ApplicationSettings.UCCXMaxIVRPortUsagePercent;
 
                         ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfDays.Text = _ApplicationSettings.MaximumNumberOfDays.ToString();
+                        ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Text = _ApplicationSettings.MaximumNumberOfAttempts.ToString();
+                        ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Text = _ApplicationSettings.MinimumIntervalBetweenRetries.ToString();
 
                         ucDebugSettings.ckbDebugEnabled.Checked = _ApplicationSettings.Debug;
                         ucDebugSettings.ckbDebugEnabled.Checked = _ApplicationSettings.Debug;
