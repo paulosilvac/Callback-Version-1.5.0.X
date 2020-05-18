@@ -569,13 +569,20 @@ namespace com.workflowconcepts.applications.uccx
                 
                 foreach (CallbackRecord record in _Records)
                 {
-                    if(!_summary.ContainsKey(record.TargetCSQ))
+                    if(record.Status != Constants.RecordStatus.INVALID
+                        && record.Status != Constants.RecordStatus.INACTIVE
+                        && record.Status != Constants.RecordStatus.COMPLETED
+                        && record.Status != Constants.RecordStatus.PURGED
+                        && record.Status != Constants.RecordStatus.EXCEEDEDNUMBEROFATTEMPTS)
                     {
-                        _summary.Add(record.TargetCSQ, new RealtimeReportsRecordsByCSQ(record));
-                    }
-                    else
-                    {
-                        ((RealtimeReportsRecordsByCSQ)_summary[record.TargetCSQ]).AddContact(record);
+                        if (!_summary.ContainsKey(record.TargetCSQ))
+                        {
+                            _summary.Add(record.TargetCSQ, new RealtimeReportsRecordsByCSQ(record));
+                        }
+                        else
+                        {
+                            ((RealtimeReportsRecordsByCSQ)_summary[record.TargetCSQ]).AddContact(record);
+                        }
                     }
 
                 }//foreach (CallbackRecord record in _Records)
