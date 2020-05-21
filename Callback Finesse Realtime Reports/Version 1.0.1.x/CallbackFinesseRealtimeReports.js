@@ -1,4 +1,3 @@
-
 String.prototype.includes = function(value)
 {
 	return this.indexOf(value) > -1;
