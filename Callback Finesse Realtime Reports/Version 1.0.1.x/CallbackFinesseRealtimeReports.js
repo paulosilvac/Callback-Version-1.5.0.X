@@ -1,3 +1,15 @@
+
+String.prototype.includes = function(value)
+{
+	return this.indexOf(value) > -1;
+}
+
+Array.prototype.includes = function(value)
+{
+	clientLogs.log("Include test : " + value);
+	return this.indexOf(value) > -1;
+}
+	
 var finesse = finesse || {};
 finesse.gadget = finesse.gadget || {};
 finesse.container = finesse.container || {};
@@ -19,7 +31,7 @@ var ManagedTeams = [];
 var aMonitoredCSQs = null;
 var refreshDataInterval = null;
 
-var sCallbackServer = 'http://10.1.10.59:9000/callbackmanagement';
+var sCallbackServer = 'http://10.32.9.124:9000/callbackmanagement';
 var timeRequestSent; // rjm 4/14/2020
 
 function Initialize()
@@ -424,7 +436,7 @@ function UpdateUI(records)
 	var j = 0;
 	var OldestWaitingDuration = 0;
 	var AvgWaitingDuration = 0;
-	var sTotalWaitingDuration = 0;
+	var iTotalWaitingDuration = 0;
 	var TotalContactsWaiting = 0;	
 //	var aValidatedRecords = [];
 	
@@ -435,19 +447,28 @@ function UpdateUI(records)
 		if(aMonitoredCSQs.includes(sCallbackCSQName))
 		{
 			var sOldestContactWaiting = records[j].getElementsByTagName("oldestcontactwaiting")[0].childNodes[0].nodeValue;
+			var iOldestContactWaiting = parseInt(sOldestContactWaiting,10);
 			var sContactsWaiting = records[j].getElementsByTagName("contactswaiting")[0].childNodes[0].nodeValue;
-			var iContactsWaiting = parseInt(sContactsWaiting,10);
+			var iContactsWaiting = parseInt(sContactsWaiting,10); // rjm 5/12/2020 - use iOldestContactWaiting instead of sOldestContactWaiting
 			var sAvgContactWaitingDuration = records[j].getElementsByTagName("avgcontactwaiting")[0].childNodes[0].nodeValue;
+			var iAvgContactWaitingDuration = parseInt(sAvgContactWaitingDuration);
 			TotalContactsWaiting = TotalContactsWaiting + iContactsWaiting;
-			sTotalWaitingDuration += (sAvgContactWaitingDuration * iContactsWaiting);
-			if(sOldestContactWaiting > OldestWaitingDuration)
+			iTotalWaitingDuration += (iAvgContactWaitingDuration * iContactsWaiting); // rjm 5/12/2020 - use iContactsWaiting instead of sContactsWaiting
+			if(iOldestContactWaiting > OldestWaitingDuration)
 			{
-				OldestWaitingDuration = sOldestContactWaiting;
+				OldestWaitingDuration = iOldestContactWaiting; // rjm 5/12/2020 - use iOldestContactWaiting instead of sOldestContactWaiting
 			}
 		}		
 	}//for(j = 0; j < records.length; j++)
 
-	AvgWaitingDuration = sTotalWaitingDuration/TotalContactsWaiting;
+	if(TotalContactsWaiting == 0)
+	{
+		AvgWaitingDuration = 0;
+	}
+	else
+	{
+		AvgWaitingDuration = iTotalWaitingDuration/TotalContactsWaiting;
+	}
 	AvgWaitingDuration = AvgWaitingDuration.toFixed(0);
 	clientLogs.log("AvgWait : " + AvgWaitingDuration);
 	// rjm - 4/14/2020 - End
@@ -761,7 +782,7 @@ finesse.modules.CallbackFinesseRealtimeReports = (function ($) {
 		
 		clientLogs.log("CallbackFinesseRealtimeReports.handleUserLoad(): Exit");
     },
-      
+	
     /**
      *  Handler for all User updates
      */
