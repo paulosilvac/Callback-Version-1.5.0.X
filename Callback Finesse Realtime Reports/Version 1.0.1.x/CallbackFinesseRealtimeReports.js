@@ -1,4 +1,5 @@
 //I like spaces!!!!!!!!
+// I don't
 String.prototype.includes = function(value)
 {
 	return this.indexOf(value) > -1;
