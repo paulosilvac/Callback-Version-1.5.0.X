@@ -315,15 +315,6 @@ namespace com.workflowconcepts.applications.uccx
                         Trace.TraceWarning("Last RealtimeData refresh was at : " + _RealtimeDataClient.LastRealtimeDataCollectedAt);
                     }
 
-                    //if (_RealtimeDataClient.GetRealtimeData())
-                    //{
-                    //    Trace.TraceInformation("contactRealtimeData.GetRealtimeData() returned true.");
-                    //}
-                    //else
-                    //{
-                    //    Trace.TraceWarning("contactRealtimeData.GetRealtimeData() returned false. Not sure what to do if false!!!!");
-                    //}
-
                     //Task #3:
 
                     String sErrorDescription = String.Empty;
@@ -531,13 +522,13 @@ namespace com.workflowconcepts.applications.uccx
 
                             if (_queue != null)
                             {
-                                Trace.TraceInformation("Settings for CSQ " + sCSQ + " were found.");
+                                Trace.TraceInformation("Record " + record.ID + " Settings for CSQ " + sCSQ + " were found.");
 
                                 CallbackContactServiceQueueSettingsProfile _Profile = null;
 
                                 if (_queue.Profile == null)
                                 {
-                                    Trace.TraceInformation("Profile for CSQ " + sCSQ + " is null; look for default profile.");
+                                    Trace.TraceInformation("Record " + record.ID + " Profile for CSQ " + sCSQ + " is null; look for default profile.");
 
                                     foreach (CallbackContactServiceQueue queue in _settingsManager.CallbackSettings.Queues)
                                     {
@@ -551,7 +542,7 @@ namespace com.workflowconcepts.applications.uccx
 
                                     if (_Profile == null)
                                     {
-                                        Trace.TraceWarning("Profile for CSQ " + sCSQ + " was not found. Flag record as invalid.");
+                                        Trace.TraceWarning("Record " + record.ID + " Profile for CSQ " + sCSQ + " was not found. Flag record as invalid.");
                                         sErrorDescription = String.Empty;
                                         _recordManager.Update(record.ID, String.Empty, String.Empty, Constants.RecordStatus.INVALID, out sErrorDescription);
 
@@ -559,12 +550,12 @@ namespace com.workflowconcepts.applications.uccx
                                     }
                                     else
                                     {
-                                        Trace.TraceInformation("Default Profile for CSQ " + sCSQ + " was found.");
+                                        Trace.TraceInformation("Record " + record.ID + " Default Profile for CSQ " + sCSQ + " was found.");
                                     }
                                 }
                                 else
                                 {
-                                    Trace.TraceInformation("Profile for CSQ " + sCSQ + " is not null.");
+                                    Trace.TraceInformation("Record " + record.ID + " Profile for CSQ " + sCSQ + " is not null.");
                                     _Profile = _queue.Profile;
                                 }
 
@@ -573,64 +564,88 @@ namespace com.workflowconcepts.applications.uccx
                                 {
                                     if (_Profile == null)
                                     {
-                                        Trace.TraceWarning("_Profile is null.");
+                                        Trace.TraceWarning("Record " + record.ID + " _Profile is null.");
                                     }
 
                                     if (_Profile.CallbackProcessingTimeframeBegin == null)
                                     {
-                                        Trace.TraceWarning("_Profile.CallbackProcessingTimeframeBegin is null.");
+                                        Trace.TraceWarning("Record " + record.ID + " _Profile.CallbackProcessingTimeframeBegin is null.");
                                     }
 
                                     DateTime dtCallbackProcessingTimeframeBegin = DateTime.ParseExact(_Profile.CallbackProcessingTimeframeBegin, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                                     DateTime dtCallbackProcessingTimeframeEnd = DateTime.ParseExact(_Profile.CallbackProcessingTimeframeEnd, "HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
 
-                                    Trace.TraceInformation("dtCallbackProcessingTimeframeBegin = " + dtCallbackProcessingTimeframeBegin.ToString() + " Now = " + DateTime.Now.ToString());
+                                    Trace.TraceInformation("Record " + record.ID + " dtCallbackProcessingTimeframeBegin = " + dtCallbackProcessingTimeframeBegin.ToString() + " Now = " + DateTime.Now.ToString());
 
                                     if (DateTime.Now.Subtract(dtCallbackProcessingTimeframeBegin).TotalMilliseconds >= 0)
                                     {
-                                        Trace.TraceInformation("CallbackProcessingTimeframe has opened.");
+                                        Trace.TraceInformation("Record " + record.ID + " CallbackProcessingTimeframe has opened.");
 
                                         if (dtCallbackProcessingTimeframeEnd.Subtract(DateTime.Now).TotalMilliseconds >= 0)
                                         {
-                                            Trace.TraceInformation("CallbackProcessingTimeframe has not yet closed.");
+                                            Trace.TraceInformation("Record " + record.ID + " CallbackProcessingTimeframe has not yet closed.");
 
-                                            if (_RealtimeDataClient.GetContactsQueuedFor(record.TargetCSQ))
+                                            double dNumberOfIVRPorts = double.Parse(_settingsManager.ApplicationSettings.UCCXNumberOfIVRPorts);
+                                            double dMaxIVRPortUsagePercent = double.Parse(_settingsManager.ApplicationSettings.UCCXMaxIVRPortUsagePercent);
+
+                                            double bMaxIVRPortsAvailable = Math.Floor(dNumberOfIVRPorts * (dMaxIVRPortUsagePercent / 100.0));
+
+                                            int iNumberOfContactsInIVR = _RealtimeDataClient.NumberOfContactsInIVR;
+
+                                            if (bMaxIVRPortsAvailable > iNumberOfContactsInIVR)
                                             {
-                                                Trace.TraceInformation("contactRealtimeData.GetContactsQueuedFor() returned true.");
+                                                Trace.TraceInformation("Record id " + record.ID + " Number of contacts in IVR: " + iNumberOfContactsInIVR.ToString() + " IVR Ports available to Callback Server: " + bMaxIVRPortsAvailable.ToString());
 
-                                                if (_RealtimeDataClient.OrderContactsQueuedFor())
+                                                if(_settingsManager.ApplicationSettings.BasicInsertionThrottling_Enabled)
                                                 {
-                                                    Trace.TraceInformation("contactRealtimeData.OrderContactsQueuedFor() returned true.");
+                                                    Trace.TraceInformation("Record id " + record.ID + " BasicInsertionThrottling: Enabled");
 
-                                                    //int iResult = _RealtimeDataClient.GetNumberOfContactAheadOf(record.ContactID);
-                                                    int iResult = _RealtimeDataClient.GetNumberOfContactAheadOf(record.ContactID, record.ID, record.QueueStartTime);
+                                                    int iCallbacksInIVR = _recordManager.RecordsCurrentlyInIVR;
 
-                                                    if (iResult == -1)
+                                                    if (iCallbacksInIVR < _settingsManager.ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime)
                                                     {
-                                                        Trace.TraceWarning("_RealtimeDataClient.GetNumberOfContactAheadOf() of recordID " + record.ID + " returned -1. Not sure what to do if false!!!!");
+                                                        Trace.TraceInformation("Record id " + record.ID + " Number of Callbacks in IVR: " + iCallbacksInIVR.ToString() + " BasicInsertionThrottling_MaximumRecordsAtATime: " + _settingsManager.ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime);
+                                                    }
+                                                    else //if(iCallbacksInIVR < _settingsManager.ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime)
+                                                    {
+                                                        Trace.TraceWarning("Record " + record.ID + " cannot be reentered: " + " Number of Callbacks in IVR: " + iCallbacksInIVR.ToString() + " BasicInsertionThrottling_MaximumRecordsAtATime: " + _settingsManager.ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime);
 
                                                         continue;
-                                                    }
-                                                    else if (iResult == -2)
+
+                                                    }//if(iCallbacksInIVR < _settingsManager.ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime)
+                                                }
+                                                else
+                                                {
+                                                    Trace.TraceInformation("Record id " + record.ID + " BasicInsertionThrottling: Disabled");
+                                                }
+
+                                                if (_RealtimeDataClient.GetContactsQueuedFor(record.TargetCSQ))
+                                                {
+                                                    Trace.TraceInformation("Record " + record.ID + " contactRealtimeData.GetContactsQueuedFor() returned true.");
+
+                                                    if (_RealtimeDataClient.OrderContactsQueuedFor())
                                                     {
-                                                        Trace.TraceInformation("_RealtimeDataClient.GetNumberOfContactAheadOf() of recordID " + record.ID + " Not to be reentered yet; scheduled.");
+                                                        Trace.TraceInformation("Record " + record.ID + " contactRealtimeData.OrderContactsQueuedFor() returned true.");
 
-                                                        continue;
-                                                    }
-                                                    else if (iResult == 0)
-                                                    {
-                                                        Trace.TraceInformation("_RealtimeDataClient.GetNumberOfContactAheadOf() of recordID " + record.ID + " :" + iResult);
-                                                        
-                                                        double dNumberOfIVRPorts = double.Parse(_settingsManager.ApplicationSettings.UCCXNumberOfIVRPorts);
-                                                        double dMaxIVRPortUsagePercent = double.Parse(_settingsManager.ApplicationSettings.UCCXMaxIVRPortUsagePercent);
+                                                        int iResult = _RealtimeDataClient.GetNumberOfContactAheadOf(record.ContactID, record.ID, record.QueueStartTime);
 
-                                                        double bMaxIVRPortsAvailable = Math.Floor(dNumberOfIVRPorts * (dMaxIVRPortUsagePercent / 100.0));
-
-                                                        int iNumberOfContactsInIVR = _RealtimeDataClient.NumberOfContactsInIVR;
-
-                                                        if (bMaxIVRPortsAvailable > iNumberOfContactsInIVR)
+                                                        if (iResult == -1)
                                                         {
-                                                            Trace.TraceInformation("Record id " + record.ID + " with contactID " + record.ContactID + " can be reentered: Number of contacts in IVR: " + iNumberOfContactsInIVR.ToString() + " IVR Ports available to Callback Server: " + bMaxIVRPortsAvailable.ToString());
+                                                            Trace.TraceWarning("_RealtimeDataClient.GetNumberOfContactAheadOf() of recordID " + record.ID + " returned -1. Not sure what to do if false!!!!");
+
+                                                            continue;
+                                                        }
+                                                        else if (iResult == -2)
+                                                        {
+                                                            Trace.TraceInformation("_RealtimeDataClient.GetNumberOfContactAheadOf() of recordID " + record.ID + " Not to be reentered yet; scheduled.");
+
+                                                            continue;
+                                                        }
+                                                        else if (iResult == 0)
+                                                        {
+                                                            Trace.TraceInformation("_RealtimeDataClient.GetNumberOfContactAheadOf() of recordID " + record.ID + " :" + iResult);
+
+                                                            Trace.TraceInformation("Record id " + record.ID + " with contactID " + record.ContactID + " can be reentered");
 
                                                             System.Threading.Thread thr = new System.Threading.Thread(new System.Threading.ParameterizedThreadStart(_SendReentryRequest));
                                                             thr.Start(record.ID);
@@ -638,48 +653,46 @@ namespace com.workflowconcepts.applications.uccx
 
                                                             break;
                                                         }
-                                                        else
-                                                        {
-                                                            Trace.TraceWarning("Record id " + record.ID + " cannot be reentered: " + " Number of contacts in IVR: " + iNumberOfContactsInIVR.ToString() + " IVR Ports available to Callback Server: " + bMaxIVRPortsAvailable.ToString());
-
-                                                            continue;
-                                                        }
                                                     }
-                                                    else
+                                                    else//if (_RealtimeDataClient.OrderContactsQueuedFor())
                                                     {
-                                                        Trace.TraceInformation("_recordManager.GetNumberOfContactAheadOf() of recordID " + record.ID + " :" + iResult);
+                                                        Trace.TraceWarning("Record " + record.ID + " contactRealtimeData.OrderContactsQueuedFor() returned false.");
 
-                                                        continue;
-                                                    }
+                                                    }//if (_RealtimeDataClient.OrderContactsQueuedFor())
+
                                                 }
-                                                else
+                                                else //if (_RealtimeDataClient.GetContactsQueuedFor(record.TargetCSQ))
                                                 {
-                                                    Trace.TraceWarning("contactRealtimeData.OrderContactsQueuedFor() returned false.");
-                                                }
-                                            }
-                                            else//if (contactRealtimeData.GetContactsQueuedFor(record.ContactID))
-                                            {
-                                                Trace.TraceWarning("contactRealtimeData.GetContactsQueuedFor() returned false.");
+                                                    Trace.TraceWarning("Record " + record.ID + " contactRealtimeData.GetContactsQueuedFor() returned false.");
 
-                                            }//if (contactRealtimeData.GetContactsQueuedFor(record.ContactID))
-                                            
+                                                }//if (_RealtimeDataClient.GetContactsQueuedFor(record.TargetCSQ))
+
+                                            }
+                                            else //if (bMaxIVRPortsAvailable > iNumberOfContactsInIVR)
+                                            {
+                                                Trace.TraceWarning("Record " + record.ID + " cannot be reentered: " + " Number of contacts in IVR: " + iNumberOfContactsInIVR.ToString() + " IVR Ports available to Callback Server: " + bMaxIVRPortsAvailable.ToString());
+
+                                                continue;
+
+                                            }//if (bMaxIVRPortsAvailable > iNumberOfContactsInIVR)                                            
+
                                             //Try reentry based on default algorithm
                                         }
                                         else//if (dtCallbackProcessingTimeframeEnd.Subtract(DateTime.Now).TotalMilliseconds >= 0)
                                         {
-                                            Trace.TraceInformation("CallbackProcessingTimeframe has closed.");
+                                            Trace.TraceInformation("Record " + record.ID + " CallbackProcessingTimeframe has closed.");
 
                                         }//if (dtCallbackProcessingTimeframeEnd.Subtract(DateTime.Now).TotalMilliseconds >= 0)
                                     }
                                     else//if (DateTime.Now.Subtract(dtCallbackProcessingTimeframeBegin).TotalMilliseconds >= 0)
                                     {
-                                        Trace.TraceInformation("CallbackProcessingTimeframe has not yet opened.");
+                                        Trace.TraceInformation("Record " + record.ID + " CallbackProcessingTimeframe has not yet opened.");
 
                                     }//if (DateTime.Now.Subtract(dtCallbackProcessingTimeframeBegin).TotalMilliseconds >= 0)
                                 }
                                 else//if (_queue.CallbackEnabled)
                                 {
-                                    Trace.TraceWarning("Callback in not enabled for CSQ " + sCSQ + "; Flag record as invalid.");
+                                    Trace.TraceWarning("Record " + record.ID + " Callback in not enabled for CSQ " + sCSQ + "; Flag record as invalid.");
                                     sErrorDescription = String.Empty;
                                     _recordManager.Update(record.ID, String.Empty, String.Empty, Constants.RecordStatus.INVALID,out sErrorDescription);
                                     continue;
@@ -688,7 +701,7 @@ namespace com.workflowconcepts.applications.uccx
                             }
                             else //if (_queue != null)
                             {
-                                Trace.TraceWarning("Settings for CSQ " + sCSQ + " were not found. Flag record as invalid.");
+                                Trace.TraceWarning("Record " + record.ID + " Settings for CSQ " + sCSQ + " were not found. Flag record as invalid.");
                                 sErrorDescription = String.Empty;
                                 _recordManager.Update(record.ID, String.Empty, String.Empty, Constants.RecordStatus.INVALID,out sErrorDescription);
                                 continue;
@@ -697,12 +710,11 @@ namespace com.workflowconcepts.applications.uccx
                         }
                         else//if (record.Status != Constants.RecordStatus.INVALID)
                         {
-                            Trace.TraceWarning("Callback Record with id " + record.ID + " is not NEW or RETRY.");
+                            Trace.TraceWarning("Record " + record.ID + " is not NEW or RETRY.");
 
                         }//if (record.Status != Constants.RecordStatus.INVALID)
 
                     }//foreach (CallbackRecord record in _recordManager.Records)
-
                 }
                 catch (Exception ex)
                 {

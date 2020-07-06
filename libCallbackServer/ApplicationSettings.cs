@@ -45,6 +45,9 @@ namespace com.workflowconcepts.applications.uccx
         int _MaximumNumberOfAttempts = Constants.MAXIMUM_NUMBER_OF_ATTEMPTS;
         int _MinimumIntervalBetweenRetries = Constants.MAXIMUM_NUMBER_OF_ATTEMPTS;
 
+        bool _BasicInsertionThrottling_Enabled = false;
+        int _BasicInsertionThrottling_MaximumRecordsAtATime = 0;
+
         int _NumberOfAPIThreads = Constants.NUMBER_OF_HANDLER_THREADS;
         int _APIHandlerThreadsSleep = Constants.API_HANDLER_THREADS_SLEEP;
 
@@ -217,6 +220,18 @@ namespace com.workflowconcepts.applications.uccx
             set { _APIHandlerThreadsSleep = value; }
         }
 
+        public bool BasicInsertionThrottling_Enabled
+        {
+            get { return _BasicInsertionThrottling_Enabled; }
+            set { _BasicInsertionThrottling_Enabled = value; }
+        }
+
+        public int BasicInsertionThrottling_MaximumRecordsAtATime
+        {
+            get { return _BasicInsertionThrottling_MaximumRecordsAtATime; }
+            set { _BasicInsertionThrottling_MaximumRecordsAtATime = value; }
+        }
+
         public bool EmailOnSuccess
         {
             get { return _EmailOnSuccess; }
@@ -299,6 +314,9 @@ namespace com.workflowconcepts.applications.uccx
             APPLICATIONSETTINGSFILEPATH = ApplicationSettingsFilePath;
 
             _LastOperationReturn = ApplicationTypes.ApplicationSettingsReturn.NONE;
+
+            _BasicInsertionThrottling_Enabled = false;
+            _BasicInsertionThrottling_MaximumRecordsAtATime = Constants.BASIC_INSERTION_THROTTLING_MAXIMUM_RECORDS_AT_A_TIME;
 
             _DebugEnabled = false;
             _DebugLevel = "verbose";
@@ -507,6 +525,32 @@ namespace com.workflowconcepts.applications.uccx
                                 }
                             }
 
+                            if (reader.Name.Equals("BasicInsertionThrottling"))
+                            {
+                                try
+                                {
+                                    _BasicInsertionThrottling_Enabled = Boolean.Parse(reader.GetAttribute("Enabled"));
+                                }
+                                catch
+                                {
+                                    _BasicInsertionThrottling_Enabled = false;
+                                }
+
+                                try
+                                {
+                                    _BasicInsertionThrottling_MaximumRecordsAtATime = int.Parse(reader.GetAttribute("MaximumAtATime"));
+
+                                    if (_BasicInsertionThrottling_MaximumRecordsAtATime <= 0)
+                                    {
+                                        _BasicInsertionThrottling_MaximumRecordsAtATime = Constants.BASIC_INSERTION_THROTTLING_MAXIMUM_RECORDS_AT_A_TIME;
+                                    }
+                                }
+                                catch
+                                {
+                                    _BasicInsertionThrottling_MaximumRecordsAtATime = Constants.BASIC_INSERTION_THROTTLING_MAXIMUM_RECORDS_AT_A_TIME;
+                                }
+                            }
+
                             if (reader.Name.Equals("API"))
                             {
                                 try
@@ -635,6 +679,11 @@ namespace com.workflowconcepts.applications.uccx
                 _XMLWriter.WriteAttributeString("MinimumIntervalBetweenRetries", _MinimumIntervalBetweenRetries.ToString());
                 _XMLWriter.WriteFullEndElement();
 
+                _XMLWriter.WriteStartElement("BasicInsertionThrottling");
+                _XMLWriter.WriteAttributeString("Enabled", _BasicInsertionThrottling_Enabled.ToString());
+                _XMLWriter.WriteAttributeString("MaximumAtATime", _BasicInsertionThrottling_MaximumRecordsAtATime.ToString());
+                _XMLWriter.WriteFullEndElement();
+
                 _XMLWriter.WriteStartElement("API");
                 _XMLWriter.WriteAttributeString("NumberOfHandlerThreads", _NumberOfAPIThreads.ToString());
                 _XMLWriter.WriteAttributeString("HandlerThreadsSleep", _APIHandlerThreadsSleep.ToString());
@@ -708,6 +757,11 @@ namespace com.workflowconcepts.applications.uccx
 
                 _XMLWriter.WriteStartElement("CallbackRecords");
                 _XMLWriter.WriteAttributeString("MaximumNumberOfDays", Constants.MAXIMUM_NUMBER_OF_DAYS.ToString());
+                _XMLWriter.WriteFullEndElement();
+
+                _XMLWriter.WriteStartElement("BasicInsertionThrottling");
+                _XMLWriter.WriteAttributeString("Enabled", _BasicInsertionThrottling_Enabled.ToString());
+                _XMLWriter.WriteAttributeString("MaximumAtATime", _BasicInsertionThrottling_MaximumRecordsAtATime.ToString());
                 _XMLWriter.WriteFullEndElement();
 
                 _XMLWriter.WriteStartElement("API");

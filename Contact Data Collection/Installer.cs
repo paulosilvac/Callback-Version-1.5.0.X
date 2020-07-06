@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration.Install;
 using System.Linq;
-
+using System.Windows.Forms;
 
 namespace com.workflowconcepts.applications.uccx
 {
@@ -23,6 +23,29 @@ namespace com.workflowconcepts.applications.uccx
             try
             {
                 System.Diagnostics.Process.Start(Path() + "bin\\InstallTestWrapper-NT.bat");
+
+                string sSystemDrive = Environment.GetFolderPath(Environment.SpecialFolder.System).Substring(0, 2);
+
+                string sCompanyName = "Workflow Concepts";
+
+                string sProductName = "Callback Server";
+
+                string sPath = sSystemDrive + "\\" + sCompanyName + "\\" + sProductName + "\\Data Collection";
+
+                if(!System.IO.Directory.Exists(sSystemDrive + "\\" + sCompanyName))
+                {
+                    System.IO.Directory.CreateDirectory(sSystemDrive + "\\" + sCompanyName);
+                }
+
+                if (!System.IO.Directory.Exists(sSystemDrive + "\\" + sCompanyName + "\\" + sProductName))
+                {
+                    System.IO.Directory.CreateDirectory(sSystemDrive + "\\" + sCompanyName + "\\" + sProductName);
+                }
+
+                if (!System.IO.Directory.Exists(sSystemDrive + "\\" + sCompanyName + "\\" + sProductName + "\\Data Collection"))
+                {
+                    System.IO.Directory.CreateDirectory(sSystemDrive + "\\" + sCompanyName + "\\" + sProductName + "\\Data Collection");
+                }
             }
             catch (Exception ex)
             {

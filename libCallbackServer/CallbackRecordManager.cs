@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Diagnostics;
+using System.Runtime.Remoting.Messaging;
 
 namespace com.workflowconcepts.applications.uccx
 {
@@ -17,9 +18,16 @@ namespace com.workflowconcepts.applications.uccx
 
         private int iRecordCount = 0;
 
+        private int iRecordsCurrentlyInIVR = 0;
+
         public System.Collections.Generic.List<CallbackRecord> Records
         {
             get { return _Records; }
+        }
+
+        public int RecordsCurrentlyInIVR
+        {
+            get { return iRecordsCurrentlyInIVR; }
         }
 
         public CallbackRecordManager()
@@ -28,6 +36,7 @@ namespace com.workflowconcepts.applications.uccx
 
             _Records = new List<CallbackRecord>();
 
+            iRecordsCurrentlyInIVR = 0;
             iRecordCount = 0;
         }
 
@@ -117,6 +126,8 @@ namespace com.workflowconcepts.applications.uccx
 
                     iRecordCount = _Records.Count;
 
+                    UpdateNumberOfRecordsCurrentlyInIVR();
+
                     WriteToDisk();
 
                     return true;
@@ -157,6 +168,8 @@ namespace com.workflowconcepts.applications.uccx
                         Trace.TraceInformation("Record list size (after):" + _Records.Count.ToString());
 
                         iRecordCount = _Records.Count;
+
+                        UpdateNumberOfRecordsCurrentlyInIVR();
 
                         WriteToDisk();
 
@@ -464,6 +477,8 @@ namespace com.workflowconcepts.applications.uccx
                                     RecordStatusUpdated(this, new CallbackRecordStatusUpdateEventArgs(record));
                                 }
                             }
+
+                            UpdateNumberOfRecordsCurrentlyInIVR();
 
                             WriteToDisk();
 
@@ -1056,6 +1071,42 @@ namespace com.workflowconcepts.applications.uccx
             }
 
             //}//lock (objLock)
+        }
+
+        private void UpdateNumberOfRecordsCurrentlyInIVR()
+        {
+            try
+            {
+                if (_Records == null)
+                {
+                    Trace.TraceWarning("_Records == null");
+                    iRecordsCurrentlyInIVR = 0;
+                    return;
+                }
+
+                if (_Records.Count == 0)
+                {
+                    Trace.TraceWarning("_Records == empty");
+                    iRecordsCurrentlyInIVR = 0;
+                    return;
+                }
+
+                iRecordsCurrentlyInIVR = _Records.Where(
+                                                    x => x.Status == Constants.RecordStatus.PROCESSING
+                                                    || x.Status == Constants.RecordStatus.REQUESTED
+                                                    || x.Status == Constants.RecordStatus.QUEUED
+                                                    || x.Status == Constants.RecordStatus.AGENTACKNOWLEDGED
+                                                    || x.Status == Constants.RecordStatus.AGENTABANDONED
+                                                    || x.Status == Constants.RecordStatus.DIALINGTARGET).Count();
+
+                return;
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError("Exception:" + ex.Message + Environment.NewLine + "StackTrace:" + ex.StackTrace);
+                iRecordsCurrentlyInIVR = 0;
+                return;
+            }
         }
     }
 }

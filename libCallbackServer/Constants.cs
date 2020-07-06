@@ -45,6 +45,8 @@ namespace com.workflowconcepts.applications.uccx
 
         public const int MAXIMUM_NUMBER_OF_REQUEUES = 3;
 
+        public const int BASIC_INSERTION_THROTTLING_MAXIMUM_RECORDS_AT_A_TIME = 1;
+
         public static string LogFilesPath
         {
             get { return Environment.GetEnvironmentVariable("SystemDrive") + "\\" + System.Windows.Forms.Application.CompanyName + "\\" + System.Windows.Forms.Application.ProductName; }

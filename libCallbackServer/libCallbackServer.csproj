@@ -148,6 +148,12 @@
     <Compile Include="ucRealtimeProcessInformation.designer.cs">
       <DependentUpon>ucRealtimeProcessInformation.cs</DependentUpon>
     </Compile>
+    <Compile Include="ucBasicInsertionThrottling.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ucBasicInsertionThrottling.Designer.cs">
+      <DependentUpon>ucBasicInsertionThrottling.cs</DependentUpon>
+    </Compile>
     <Compile Include="ucUCCXInformation.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ucRealtimeProcessInformation.resx">
       <DependentUpon>ucRealtimeProcessInformation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ucBasicInsertionThrottling.resx">
+      <DependentUpon>ucBasicInsertionThrottling.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ucUCCXInformation.resx">
       <DependentUpon>ucUCCXInformation.cs</DependentUpon>

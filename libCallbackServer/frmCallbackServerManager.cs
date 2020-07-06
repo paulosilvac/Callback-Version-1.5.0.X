@@ -49,6 +49,7 @@ namespace com.workflowconcepts.applications.uccx
             ucDebugSettings.Enabled = false;
             ucUCCXInformation.Enabled = false;
             ucCallbackRecordsSettings.Enabled = false;
+            ucBasicInsertionThrottling.Enabled = false;
 
             this.btnSave.Enabled = false;
 
@@ -58,6 +59,7 @@ namespace com.workflowconcepts.applications.uccx
             ucDebugSettings.Changed += new EventHandler(ucDebugSettings_Changed);
             ucUCCXInformation.Changed += new EventHandler(ucUCCXInformation_Changed);
             ucCallbackRecordsSettings.Changed += new EventHandler(ucCallbackRecordsSettings_Changed);
+            ucBasicInsertionThrottling.Changed += new EventHandler(ucBasicInsertionThrottling_Changed);
 
             //Task#4: Set service controller name and statuschanged event handler
             ucWindowsServiceController.StatusChanged += new EventHandler<WindowsServiceControllerEventArgs>(ucWindowsServiceController_StatusChanged);
@@ -466,6 +468,9 @@ namespace com.workflowconcepts.applications.uccx
                 _ApplicationSettings.MaximumNumberOfAttempts = int.Parse(ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Text);
                 _ApplicationSettings.MinimumIntervalBetweenRetries = int.Parse(ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Text);
 
+                _ApplicationSettings.BasicInsertionThrottling_Enabled = ucBasicInsertionThrottling.ckbEnabled.Checked;
+                _ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime = int.Parse(ucBasicInsertionThrottling.txtMaximumRecordsAtATime.Text);
+
                 _ApplicationSettings.Debug = this.ucDebugSettings.ckbDebugEnabled.Checked;
                 _ApplicationSettings.DebugLevel = this.ucDebugSettings.cbDebugLevel.Text;
                 _ApplicationSettings.DebugRetainUnit = this.ucDebugSettings.cbRetainUnit.Text;
@@ -631,6 +636,12 @@ namespace com.workflowconcepts.applications.uccx
             _ChangesDetected = true;
         }
 
+        private void ucBasicInsertionThrottling_Changed(object sender, EventArgs e)
+        {
+            Trace.TraceInformation("Enter.");
+            _ChangesDetected = true;
+        }
+
         void ucWindowsServiceController_StatusChanged(object sender, WindowsServiceControllerEventArgs e)
         {
             Trace.TraceInformation("Service Status: " + e.CurrentStatus.ToString());
@@ -691,6 +702,10 @@ namespace com.workflowconcepts.applications.uccx
                         ucCallbackRecordsSettings.txtCallbackRecordsMaximumNumberOfAttempts.Text = _ApplicationSettings.MaximumNumberOfAttempts.ToString();
                         ucCallbackRecordsSettings.txtCallbackRecordsMinimumIntervalBetweenRetries.Text = _ApplicationSettings.MinimumIntervalBetweenRetries.ToString();
 
+                        ucBasicInsertionThrottling.ckbEnabled.Checked = !_ApplicationSettings.BasicInsertionThrottling_Enabled;
+                        ucBasicInsertionThrottling.ckbEnabled.Checked = _ApplicationSettings.BasicInsertionThrottling_Enabled;
+                        ucBasicInsertionThrottling.txtMaximumRecordsAtATime.Text = _ApplicationSettings.BasicInsertionThrottling_MaximumRecordsAtATime.ToString();
+
                         ucDebugSettings.ckbDebugEnabled.Checked = _ApplicationSettings.Debug;
                         ucDebugSettings.ckbDebugEnabled.Checked = _ApplicationSettings.Debug;
 
@@ -736,6 +751,7 @@ namespace com.workflowconcepts.applications.uccx
                     ucDebugSettings.Enabled = true;
                     ucUCCXInformation.Enabled = true;
                     ucCallbackRecordsSettings.Enabled = true;
+                    ucBasicInsertionThrottling.Enabled = true;
 
                     mnuMainCallbackAdministration.Enabled = true;
                     mnuMainCallbackDiagnostics.Enabled = true;
@@ -756,6 +772,7 @@ namespace com.workflowconcepts.applications.uccx
                     ucDebugSettings.Enabled = false;
                     ucUCCXInformation.Enabled = false;
                     ucCallbackRecordsSettings.Enabled = false;
+                    ucBasicInsertionThrottling.Enabled = false;
 
                     mnuMainCallbackAdministration.Enabled = false;
                     mnuMainCallbackDiagnostics.Enabled = false;
