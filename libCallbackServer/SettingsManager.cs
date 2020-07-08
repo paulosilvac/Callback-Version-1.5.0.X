@@ -38,6 +38,11 @@ namespace com.workflowconcepts.applications.uccx
             set { dtSettingsLastChangedAt = value;}
         }
 
+        public DateTime SettingsLastChangedAtUTC
+        {
+            get { return dtSettingsLastChangedAt.ToUniversalTime(); }
+        }
+
         public DateTime ServiceStartedAt
         {
             get { return dtServiceStartedAt; }

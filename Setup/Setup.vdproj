@@ -111,6 +111,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_4AD540E2560DD355CDB3CA441E217ECB"
+        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_4D4C1409A7324B53A134F712F9FDE3AD"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -155,6 +161,12 @@
         {
         "MsmKey" = "8:_89D7AFE8F8D3E4C5F603957EC4DBDD3D"
         "OwnerKey" = "8:_EF58B8AD10ACDE75F616E463E1854AB3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_89D7AFE8F8D3E4C5F603957EC4DBDD3D"
+        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -215,6 +227,18 @@
         {
         "MsmKey" = "8:_AE98DC066DF274EF9D3A6A21C579AFA5"
         "OwnerKey" = "8:_15F011438A19428FA4ED698F2D142797"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AE98DC066DF274EF9D3A6A21C579AFA5"
+        "OwnerKey" = "8:_4AD540E2560DD355CDB3CA441E217ECB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AE98DC066DF274EF9D3A6A21C579AFA5"
+        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -322,6 +346,12 @@
         "Entry"
         {
         "MsmKey" = "8:_EF58B8AD10ACDE75F616E463E1854AB3"
+        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EF58B8AD10ACDE75F616E463E1854AB3"
         "OwnerKey" = "8:_45B0E2EF677A40D99ACE89AAB771BA28"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -359,6 +389,18 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_FF912ADB369D40DC932008A572AA9F28"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_4AD540E2560DD355CDB3CA441E217ECB"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -405,7 +447,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Callback Server Version 1.5.41 Build 20188.msi"
+        "OutputFilename" = "8:Debug\\Callback Server Version 1.5.42 Build 20190.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -892,6 +934,37 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_4AD540E2560DD355CDB3CA441E217ECB"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Utilities, Version=6.0.0.100, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_4AD540E2560DD355CDB3CA441E217ECB"
+                    {
+                    "Name" = "8:Utilities.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Utilities.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_A6C2444BBDF648D8B099CC7F9E5EFC4B"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_4D4C1409A7324B53A134F712F9FDE3AD"
@@ -1471,7 +1544,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:libCallbackServer, Version=1.5.41.20188, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:libCallbackServer, Version=1.5.42.20190, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EF58B8AD10ACDE75F616E463E1854AB3"
@@ -1722,15 +1795,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Callback Server"
-        "ProductCode" = "8:{D299495E-96A6-4309-8107-007371CE9A78}"
-        "PackageCode" = "8:{42FACEAF-85A5-4CC5-B12E-D283282C4E34}"
+        "ProductCode" = "8:{24B991C5-C6BD-457F-B134-3CEFE29CA1C6}"
+        "PackageCode" = "8:{62040C88-ADAD-4128-A1F3-933D99F4BE3D}"
         "UpgradeCode" = "8:{43D8D387-8BDE-45FA-B1E3-052ADF2DD469}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.5.41"
+        "ProductVersion" = "8:1.5.42"
         "Manufacturer" = "8:Workflow Concepts"
         "ARPHELPTELEPHONE" = "8:(207) 558-8600"
         "ARPHELPLINK" = "8:http://www.workflowconcepts.com"

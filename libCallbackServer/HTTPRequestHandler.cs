@@ -1235,14 +1235,14 @@ namespace com.workflowconcepts.applications.uccx
                                                                             Response.Append("<Description>CSQ " + sTargetCSQ + " is accepting callback requests.</Description>");
                                                                             Response.Append("<Code>0</Code>");
                                                                             Response.Append("<AcceptingCallbacks>true</AcceptingCallbacks>");
-                                                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                                         }
                                                                         else
                                                                         {
                                                                             Response.Append("<Description>" + offeredAlgorithm.Description + "</Description>");
                                                                             Response.Append("<Code>-1</Code>");
                                                                             Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                                         }
 
                                                                         offeredAlgorithm = null;
@@ -1255,7 +1255,7 @@ namespace com.workflowconcepts.applications.uccx
                                                                         Response.Append("<Description>CSQ Realtime Data is older than " + (3 * Constants.CONTACT_REALTIMEDATE_REFRESH) + "</Description>");
                                                                         Response.Append("<Code>-1</Code>");
                                                                         Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                                        Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                                        Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                                     }
 
                                                                 }//lock (lock_CheckCSQStatus)
@@ -1265,7 +1265,7 @@ namespace com.workflowconcepts.applications.uccx
                                                                 Response.Append("<Description>AcceptCallbacksTimeframe for CSQ " + sTargetCSQ + " has ended.</Description>");
                                                                 Response.Append("<Code>0</Code>");
                                                                 Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                                Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                                Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                             }
                                                         }
                                                         else
@@ -1273,7 +1273,7 @@ namespace com.workflowconcepts.applications.uccx
                                                             Response.Append("<Description>AcceptCallbacksTimeframe for CSQ " + sTargetCSQ + " has not began.</Description>");
                                                             Response.Append("<Code>0</Code>");
                                                             Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                         }
 
                                                     }
@@ -1284,7 +1284,7 @@ namespace com.workflowconcepts.applications.uccx
                                                         Response.Append("<Description>Exception while handling settings for this CSQ</Description>");
                                                         Response.Append("<Code>-1</Code>");
                                                         Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                        Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                        Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                     }
                                                 }
                                                 else
@@ -1292,7 +1292,7 @@ namespace com.workflowconcepts.applications.uccx
                                                     Response.Append("<Description>No valid profile was found for CSQ " + sTargetCSQ + ".</Description>");
                                                     Response.Append("<Code>-1</Code>");
                                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                    Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                    Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                                 }
                                             }
                                             else
@@ -1300,7 +1300,7 @@ namespace com.workflowconcepts.applications.uccx
                                                 Response.Append("<Description>CSQ " + sTargetCSQ + " does not have callback enabled.</Description>");
                                                 Response.Append("<Code>0</Code>");
                                                 Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                                Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                                Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                             }
                                         }
                                         else
@@ -1308,7 +1308,7 @@ namespace com.workflowconcepts.applications.uccx
                                             Response.Append("<Description>CSQ " + sTargetCSQ + " was not found in settings.</Description>");
                                             Response.Append("<Code>-1</Code>");
                                             Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAt.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
+                                            Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
                                         }
                                     }
                                     else
