@@ -30,35 +30,50 @@ var ManagedTeams = [];
 var aMonitoredCSQs = null;
 var refreshDataInterval = null;
 
-var sCallbackServer = 'http://10.32.9.124:9000/callbackmanagement';
+//LAB
+//var sCallbackServer = 'http://10.1.10.57:9000/callbackmanagement';
+
+//Customer
+var sCallbackServer = 'http://10.34.32.148:9000/callbackmanagement';
+
 var timeRequestSent; // rjm 4/14/2020
 
-function Initialize()
+function SetRefreshCallbackRealtimeDataInterval()
 {
-	console.log("CallbackFinesseRealtimeReports.Initialize(): Enter");
+	console.log("CallbackFinesseRealtimeReports.SetRefreshCallbackRealtimeDataInterval(): Enter");
 
 	aMonitoredCSQs = null;
 
-	if(bHasASupervisorRole)
+	if ( refreshDataInterval === null ) 
 	{
 		refreshDataInterval = setInterval(RefreshCallbackRealtimeData,(REALTIME_REFRESH_INTERVAL_BASE + Math.floor(Math.random() * REALTIME_REFRESH_INTERVAL_RNDADD)));
 	}
 	else
 	{
-		refreshDataInterval = setInterval(RefreshCallbackRealtimeData,(REALTIME_REFRESH_INTERVAL_BASE + Math.floor(Math.random() * REALTIME_REFRESH_INTERVAL_RNDADD)));
+		console.log("CallbackFinesseRealtimeReports.SetRefreshCallbackRealtimeDataInterval(): refreshDataInterval is not null.");
 	}
 
-	console.log("CallbackFinesseRealtimeReports.Initialize(): Exit");
+	console.log("CallbackFinesseRealtimeReports.SetRefreshCallbackRealtimeDataInterval(): Exit");
+}
+
+function ClearRefreshCallbackRealtimeDataInterval()
+{
+	console.log("CallbackFinesseRealtimeReports.ClearRefreshCallbackRealtimeDataInterval(): Enter");
+
+	if ( typeof(refreshDataInterval) !== "undefined" && refreshDataInterval !== null ) 
+	{
+		clearInterval(refreshDataInterval);
+		refreshDataInterval = null;
+	}
+
+	console.log("CallbackFinesseRealtimeReports.ClearRefreshCallbackRealtimeDataInterval(): Exit");
 }
 
 function RefreshCallbackRealtimeData()
 {
 	console.log("CallbackFinesseRealtimeReports.RefreshCallbackRealtimeData(): Enter");
 
-	//if ( typeof(refreshDataInterval) !== "undefined" && refreshDataInterval !== null ) 
-	//{
-	//	clearInterval(refreshDataInterval);
-	//}
+	ClearRefreshCallbackRealtimeDataInterval();
 
 	//var url = sCallbackServer + '?operation=getrecords';				// rjm 4/14/2020
 	var url = sCallbackServer + '?operation=getrecordsbycsq';		// rjm 4/14/2020
@@ -210,10 +225,10 @@ function handleWebRequestResponse(handlers)
 function handleResponseSuccess_GetRecords(response) 
 {
 	var timeRequestRx = performance.now(); 							// rjm 4/14/2020
-	var timeRoundTrip = timeRequestRx - timeRequestSent;	// rjm 4/14/2020
-	timeRoundTrip = timeRoundTrip.toFixed(0);							// rjm 4/14/2020
-	clientLogs.log("handleResponseSuccess_GetRecords(): Enter. Call took " + timeRoundTrip + " mS to complete");
-	clientLogs.log("getrecordsbycsq response : " + response.text);
+	var timeRoundTrip = timeRequestRx - timeRequestSent;			// rjm 4/14/2020
+	timeRoundTrip = timeRoundTrip.toFixed(0);						// rjm 4/14/2020
+	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseSuccess_GetRecords(): Enter. Call took " + timeRoundTrip + " mS to complete");
+	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseSuccess_GetRecords(): getrecordsbycsq response : " + response.text);
 	
 	var parser = new DOMParser();
 	var xml = parser.parseFromString(response.text, 'text/xml');
@@ -224,6 +239,8 @@ function handleResponseSuccess_GetRecords(response)
 
 	records = null;
 
+	SetRefreshCallbackRealtimeDataInterval();
+
 	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseSuccess_GetRecords(): Exit");
 }
 
@@ -231,9 +248,17 @@ function handleResponseError_GetRecords(response)
 {
 	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseError_GetRecords(): Enter");
 	
-	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseError_GetRecords(): Received code " + response.rc);
+	var timeRequestRx = performance.now();
+	var timeRoundTrip = timeRequestRx - timeRequestSent;
+	timeRoundTrip = timeRoundTrip.toFixed(0);
+
+	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseError_GetRecords(): Roundtrip:" + timeRoundTrip + " ms");
+
+	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseError_GetRecords(): Received Code:" + response.rc + " Description:"  + response.text);
 
 	// window.alert("handleResponseError_GetRecords error: Received code " + response.rc);
+
+	SetRefreshCallbackRealtimeDataInterval();
 
 	clientLogs.log("CallbackFinesseRealtimeReports.handleResponseError_GetRecords(): Exit");
 }
@@ -775,7 +800,7 @@ finesse.modules.CallbackFinesseRealtimeReports = (function ($) {
 
 		GetCSQsForCurrentTeam();
 
-		Initialize();
+		SetRefreshCallbackRealtimeDataInterval();
 		
         gadgets.window.adjustHeight();
 		
@@ -796,13 +821,13 @@ finesse.modules.CallbackFinesseRealtimeReports = (function ($) {
 		bHasASupervisorRole = user.hasSupervisorRole();
 		ManagedTeams = user.getSupervisedTeams();
 
-		clientLogs.log("CallbackFinesseRealtimeReports.handleUserLoad(): Extension:" + userExtension + " Team:" + userTeam + " TeamID:" + user.getTeamId() + " Id:" + userId + " IsUserASupervisor:" + bHasASupervisorRole);
+		clientLogs.log("CallbackFinesseRealtimeReports.handleUserChange(): Extension:" + userExtension + " Team:" + userTeam + " TeamID:" + user.getTeamId() + " Id:" + userId + " IsUserASupervisor:" + bHasASupervisorRole);
 		
 		ResetUI();
 
 		GetCSQsForCurrentTeam();
 
-		Initialize();
+		SetRefreshCallbackRealtimeDataInterval();
 
 		gadgets.window.adjustHeight();
 		
@@ -853,7 +878,7 @@ finesse.modules.CallbackFinesseRealtimeReports = (function ($) {
 
 			var sVersion = "";
 			
-			sVersion = " [DEV Version: 1.0.1.0001]";
+			sVersion = " [Version: 1.0.1.0002]";
 			
 			// $("#gadgetname").text("Callback Requeue" + sVersion);
 			
