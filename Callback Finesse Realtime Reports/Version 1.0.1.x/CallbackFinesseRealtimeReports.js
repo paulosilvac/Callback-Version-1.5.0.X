@@ -42,8 +42,6 @@ function SetRefreshCallbackRealtimeDataInterval()
 {
 	console.log("CallbackFinesseRealtimeReports.SetRefreshCallbackRealtimeDataInterval(): Enter");
 
-	aMonitoredCSQs = null;
-
 	if ( refreshDataInterval === null ) 
 	{
 		refreshDataInterval = setInterval(RefreshCallbackRealtimeData,(REALTIME_REFRESH_INTERVAL_BASE + Math.floor(Math.random() * REALTIME_REFRESH_INTERVAL_RNDADD)));
@@ -878,7 +876,7 @@ finesse.modules.CallbackFinesseRealtimeReports = (function ($) {
 
 			var sVersion = "";
 			
-			sVersion = " [Version: 1.0.1.0002]";
+			sVersion = " [Version: 1.0.1.0003]";
 			
 			// $("#gadgetname").text("Callback Requeue" + sVersion);
 			
