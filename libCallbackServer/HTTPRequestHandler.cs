@@ -1069,7 +1069,7 @@ namespace com.workflowconcepts.applications.uccx
                                     Trace.TraceWarning("REQID{" + ReqID.ToString() + "} Maximum number of requests has been reached: " + Constants.MAXIMUM_NUMBER_OF_REQUESTS);
 
                                     Response.Append("<Description>Maximum number of requests has been reached: " + Constants.MAXIMUM_NUMBER_OF_REQUESTS + "</Description>");
-                                    Response.Append("<Code>-1</Code>");
+                                    Response.Append($"<Code>{Constants.OperationErrorCodes.SYSTEM_LIMIT_REACHED}</Code>");
                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
                                     Response.Append("<SettingsLastUpdate></SettingsLastUpdate>");
 
@@ -1094,7 +1094,7 @@ namespace com.workflowconcepts.applications.uccx
                                     Trace.TraceWarning("REQID{" + ReqID.ToString() + "} - Realtime Data was last collected at  " + _RealtimeDataClient.LastRealtimeDataCollectedAt + "; it is now " + DateTime.Now.Subtract(_RealtimeDataClient.LastRealtimeDataCollectedAt).TotalMilliseconds + " ms old.");
 
                                     Response.Append("<Description>Contact Realtime Data is older than " + (3 * Constants.CONTACT_REALTIMEDATE_REFRESH) + "</Description>");
-                                    Response.Append("<Code>-1</Code>");
+                                    Response.Append($"<Code>{Constants.OperationErrorCodes.REALTIME_DATA_STALE}</Code>");
                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
                                     Response.Append("<SettingsLastUpdate></SettingsLastUpdate>");
 
@@ -1124,7 +1124,7 @@ namespace com.workflowconcepts.applications.uccx
                                     Trace.TraceInformation("REQID{" + ReqID.ToString() + "} - " + "Max IVR Ports available:" + bMaxIVRPortsAvailable.ToString() + " IVR Ports in use:" + _RealtimeDataClient.NumberOfContactsInIVR);
 
                                     Response.Append("<Description>Over Max IVR Ports in use.</Description>");
-                                    Response.Append("<Code>-1</Code>");
+                                    Response.Append($"<Code>{Constants.OperationErrorCodes.IVR_PORT_USAGE_EXCEEDED}</Code>");
                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
                                     Response.Append("<SettingsLastUpdate></SettingsLastUpdate>");
 
