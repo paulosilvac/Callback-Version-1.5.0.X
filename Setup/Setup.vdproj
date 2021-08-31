@@ -394,13 +394,13 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_56D504FEEA6AEDF817DEEE621E8F4953"
+        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_8807ADE7529A4B459409E80652185067"
+        "OwnerKey" = "8:_56D504FEEA6AEDF817DEEE621E8F4953"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -447,7 +447,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Callback Server Version 1.5.43 Build 00000.msi"
+        "OutputFilename" = "8:Debug\\Callback Server Version 1.5.44 Build 00000.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -1544,7 +1544,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:libCallbackServer, Version=1.5.43.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:libCallbackServer, Version=1.5.44.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EF58B8AD10ACDE75F616E463E1854AB3"
@@ -1795,15 +1795,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Callback Server"
-        "ProductCode" = "8:{16006671-101F-441C-8631-C0382AD69BB4}"
-        "PackageCode" = "8:{4BC48C59-EC6A-4776-844F-B6E37E6F78FA}"
+        "ProductCode" = "8:{9A708630-6376-4101-B0C4-B7749CA649BE}"
+        "PackageCode" = "8:{9A57976B-A247-4AD7-92E7-1D578CDD78DD}"
         "UpgradeCode" = "8:{43D8D387-8BDE-45FA-B1E3-052ADF2DD469}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.5.43"
+        "ProductVersion" = "8:1.5.44"
         "Manufacturer" = "8:Workflow Concepts"
         "ARPHELPTELEPHONE" = "8:(207) 558-8600"
         "ARPHELPLINK" = "8:http://www.workflowconcepts.com"

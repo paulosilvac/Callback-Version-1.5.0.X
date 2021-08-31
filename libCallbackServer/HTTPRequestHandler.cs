@@ -1071,7 +1071,7 @@ namespace com.workflowconcepts.applications.uccx
                                     Response.Append("<Description>Maximum number of requests has been reached: " + Constants.MAXIMUM_NUMBER_OF_REQUESTS + "</Description>");
                                     Response.Append($"<Code>{Constants.OperationErrorCodes.SYSTEM_LIMIT_REACHED}</Code>");
                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                    Response.Append("<SettingsLastUpdate></SettingsLastUpdate>");
+                                    Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
 
                                     if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
                                     {
@@ -1096,7 +1096,7 @@ namespace com.workflowconcepts.applications.uccx
                                     Response.Append("<Description>Contact Realtime Data is older than " + (3 * Constants.CONTACT_REALTIMEDATE_REFRESH) + "</Description>");
                                     Response.Append($"<Code>{Constants.OperationErrorCodes.REALTIME_DATA_STALE}</Code>");
                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                    Response.Append("<SettingsLastUpdate></SettingsLastUpdate>");
+                                    Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
 
                                     if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
                                     {
@@ -1126,7 +1126,7 @@ namespace com.workflowconcepts.applications.uccx
                                     Response.Append("<Description>Over Max IVR Ports in use.</Description>");
                                     Response.Append($"<Code>{Constants.OperationErrorCodes.IVR_PORT_USAGE_EXCEEDED}</Code>");
                                     Response.Append("<AcceptingCallbacks>false</AcceptingCallbacks>");
-                                    Response.Append("<SettingsLastUpdate></SettingsLastUpdate>");
+                                    Response.Append("<SettingsLastUpdate>" + _settingsManager.SettingsLastChangedAtUTC.ToString("dd/MM/yyyy HH:mm:ss") + "</SettingsLastUpdate>");
 
                                     if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
                                     {
