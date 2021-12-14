@@ -484,6 +484,17 @@ namespace com.workflowconcepts.applications.uccx
                             || record.Status == Constants.RecordStatus.RETRY
                             || record.Status == Constants.RecordStatus.PURGED)
                         {
+                            if (record.NumberOfAttempts >= _settingsManager.ApplicationSettings.MaximumNumberOfAttempts)
+                            {
+                                Trace.TraceInformation("Record " + record.ID + " has reached the maximum number of attempts:" + record.NumberOfAttempts + " !!!Code added to try to remedy multiple records with same id with Requeue gadget!!!");
+
+                                sErrorDescription = String.Empty;
+
+                                _recordManager.Update(record.ID, String.Empty, String.Empty, Constants.RecordStatus.EXCEEDEDNUMBEROFATTEMPTS, out sErrorDescription);
+
+                                continue;
+                            }
+
                             //Assert NumberOFAttempts
                             if (record.Status == Constants.RecordStatus.RETRY)
                             {

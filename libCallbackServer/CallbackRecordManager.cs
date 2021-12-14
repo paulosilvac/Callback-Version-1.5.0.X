@@ -62,7 +62,7 @@ namespace com.workflowconcepts.applications.uccx
                         }
                         else
                         {
-                            Trace.TraceWarning("A record with ID " + RecordID + " already exists but is in Status " + record.Status + "; insertion will be allowed.");
+                            Trace.TraceWarning("A record with ID " + RecordID + " already exists but is in Status " + record.Status + "; insertion will be allowed. !!!This exception was added because of the Requeue gadget -> problematic and needs to be reviewed!!!");
                         }
                     }
                 }
@@ -97,7 +97,7 @@ namespace com.workflowconcepts.applications.uccx
                         }
                         else
                         {
-                            Trace.TraceWarning("A record with DNIS " + DNIS + " already exists but is in Status " + record.Status + "; insertion will be allowed.");
+                            Trace.TraceWarning("A record with DNIS " + DNIS + " already exists but is in Status " + record.Status + "; insertion will be allowed. !!!This exception was added because of the Requeue gadget -> problematic and needs to be reviewed!!!");
                         }
                     }
                 }

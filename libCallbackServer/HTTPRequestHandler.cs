@@ -285,12 +285,12 @@ namespace com.workflowconcepts.applications.uccx
 
                                 if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
                                 {
-                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "}  SendMessage() returned true.");
+                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
                                     _result = true;
                                 }
                                 else
                                 {
-                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  SendMessage() returned false.");
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
                                     _result = false;
                                 }
 
@@ -300,28 +300,116 @@ namespace com.workflowconcepts.applications.uccx
                             if (String.IsNullOrEmpty(sOriginCSQ))
                             {
                                 sOriginCSQ = "NOT_IN_USE";
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  sOriginCSQ is either null or empty; default it to " + sOriginCSQ);
+                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sOriginCSQ is either null or empty; default it to " + sOriginCSQ);
                             }
 
-                            if (sTargetCSQ == null || sTargetCSQ == String.Empty)
+                            if (string.IsNullOrEmpty(sTargetCSQ))
                             {
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  sTargetCSQ is either null or empty.");
+                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sTargetCSQ is either null or empty.");
 
                                 Response.Append("<Description>Record sTargetCSQ is empty/null.</Description>");
                                 Response.Append("<Code>-1</Code>");
 
                                 if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
                                 {
-                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "}  SendMessage() returned true.");
+                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
                                     _result = true;
                                 }
                                 else
                                 {
-                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  SendMessage() returned false.");
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
                                     _result = false;
                                 }
 
                                 return _result;
+                            }
+
+                            if(string.IsNullOrEmpty(sContactID))
+                            {
+                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactID is either null or empty.");
+
+                                Response.Append("<Description>Record sContactID is empty/null.</Description>");
+                                Response.Append("<Code>-1</Code>");
+
+                                if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                {
+                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                    _result = true;
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                    _result = false;
+                                }
+
+                                return _result;
+                            }
+                            else
+                            {
+                                if(!sContactID.All(char.IsDigit))
+                                {
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactID is not numeric");
+
+                                    Response.Append("<Description>sContactID is not numeric</Description>");
+                                    Response.Append("<Code>-1</Code>");
+
+                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                    {
+                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                        _result = true;
+                                    }
+                                    else
+                                    {
+                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                        _result = false;
+                                    }
+
+                                    return _result;
+                                }
+                            }
+
+                            if(string.IsNullOrEmpty(sContactImplementationID))
+                            {
+                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactImplementationID is either null or empty.");
+
+                                Response.Append("<Description>Record sContactImplementationID is empty/null.</Description>");
+                                Response.Append("<Code>-1</Code>");
+
+                                if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                {
+                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                    _result = true;
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                    _result = false;
+                                }
+
+                                return _result;
+                            }
+                            else
+                            {
+                                if (!sContactImplementationID.All(char.IsDigit))
+                                {
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactImplementationID is not numeric");
+
+                                    Response.Append("<Description>sContactImplementationID is not numeric</Description>");
+                                    Response.Append("<Code>-1</Code>");
+
+                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                    {
+                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                        _result = true;
+                                    }
+                                    else
+                                    {
+                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                        _result = false;
+                                    }
+
+                                    return _result;
+                                }
                             }
 
                             if (!_recordManager.AssertBelowSystemLimit())
