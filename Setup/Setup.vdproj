@@ -447,7 +447,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Callback Server Version 1.5.45 Build 00000.msi"
+        "OutputFilename" = "8:Debug\\Callback Server Version 1.5.46 Build 00000.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -470,11 +470,6 @@
                     {
                     "Name" = "8:Microsoft .NET Framework 4.8 (x86 and x64)"
                     "ProductCode" = "8:.NETFramework,Version=v4.8"
-                    }
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
-                    {
-                    "Name" = "8:Windows Installer 3.1"
-                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
                     }
                 }
             }
@@ -1544,7 +1539,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:libCallbackServer, Version=1.5.44.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:libCallbackServer, Version=1.5.46.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_EF58B8AD10ACDE75F616E463E1854AB3"
@@ -1795,15 +1790,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Callback Server"
-        "ProductCode" = "8:{A61FBC19-28A5-4CB4-A3A3-1923E0F998C6}"
-        "PackageCode" = "8:{8A99C301-9222-4E51-9F6D-F43E7497ABC4}"
+        "ProductCode" = "8:{0B86C800-8758-4A51-93E7-D153D29210D1}"
+        "PackageCode" = "8:{F15CEB47-0D98-4D09-9B58-13A09756AF32}"
         "UpgradeCode" = "8:{43D8D387-8BDE-45FA-B1E3-052ADF2DD469}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.5.45"
+        "ProductVersion" = "8:1.5.46"
         "Manufacturer" = "8:Workflow Concepts"
         "ARPHELPTELEPHONE" = "8:(207) 558-8600"
         "ARPHELPLINK" = "8:http://www.workflowconcepts.com"

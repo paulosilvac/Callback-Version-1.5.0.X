@@ -390,26 +390,26 @@ namespace com.workflowconcepts.applications.uccx
                             }
                             else
                             {
-                                if (!sContactImplementationID.All(char.IsDigit))
-                                {
-                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactImplementationID is not numeric");
+                                //if (!sContactImplementationID.All(char.IsDigit))
+                                //{
+                                //    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactImplementationID is not numeric");
 
-                                    Response.Append("<Description>sContactImplementationID is not numeric</Description>");
-                                    Response.Append("<Code>-1</Code>");
+                                //    Response.Append("<Description>sContactImplementationID is not numeric</Description>");
+                                //    Response.Append("<Code>-1</Code>");
 
-                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
-                                    {
-                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
-                                        _result = true;
-                                    }
-                                    else
-                                    {
-                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
-                                        _result = false;
-                                    }
+                                //    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                //    {
+                                //        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                //        _result = true;
+                                //    }
+                                //    else
+                                //    {
+                                //        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                //        _result = false;
+                                //    }
 
-                                    return _result;
-                                }
+                                //    return _result;
+                                //}
                             }
 
                             if (!_recordManager.AssertBelowSystemLimit())
