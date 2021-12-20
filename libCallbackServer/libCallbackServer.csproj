@@ -199,6 +199,7 @@
     <Compile Include="ucWindowsServiceController.designer.cs">
       <DependentUpon>ucWindowsServiceController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Utilities.cs" />
     <Compile Include="WebServer.cs" />
     <Compile Include="WebServerEventArgs.cs" />
     <Compile Include="WebUIUser.cs" />

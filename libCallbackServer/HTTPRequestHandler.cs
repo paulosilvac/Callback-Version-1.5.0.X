@@ -64,6 +64,8 @@ namespace com.workflowconcepts.applications.uccx
                 String sRequeueCode = String.Empty;
                 String sRequeueCounter = String.Empty;
 
+                int iCount = 0;
+
                 DateTime dtBeginWriteResponse = DateTime.MinValue;
 
                 Constants.Operations Operation = Constants.Operations.NONE;
@@ -276,9 +278,22 @@ namespace com.workflowconcepts.applications.uccx
                                 return _result;
                             }
 
+                            string sNewRecordID = string.Empty;
+
+                            if(Utilities.IncrementSessionIDSeqByOne(sRecordID, out sNewRecordID))
+                            {
+                                Trace.TraceInformation($"REQID({ReqID.ToString()}) {nameof(Utilities.IncrementSessionIDSeqByOne)} returned true. {nameof(sRecordID)}:{sRecordID} -> {nameof(sNewRecordID)}:{sNewRecordID}");
+
+                                sRecordID = sNewRecordID;
+                            }
+                            else
+                            {
+                                Trace.TraceWarning($"REQID({ReqID.ToString()}) {nameof(Utilities.IncrementSessionIDSeqByOne)} returned false. {nameof(sRecordID)}:{sRecordID} will stay the same");
+                            }
+
                             if (String.IsNullOrEmpty(sDNIS))
                             {
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  sDNIS is either null or empty.");
+                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sDNIS is either null or empty.");
 
                                 Response.Append("<Description>Record DNIS is empty/null.</Description>");
                                 Response.Append("<Code>-1</Code>");
@@ -346,26 +361,26 @@ namespace com.workflowconcepts.applications.uccx
                             }
                             else
                             {
-                                if(!sContactID.All(char.IsDigit))
-                                {
-                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactID is not numeric");
+                                //if(!sContactID.All(char.IsDigit))
+                                //{
+                                //    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} sContactID is not numeric");
 
-                                    Response.Append("<Description>sContactID is not numeric</Description>");
-                                    Response.Append("<Code>-1</Code>");
+                                //    Response.Append("<Description>sContactID is not numeric</Description>");
+                                //    Response.Append("<Code>-1</Code>");
 
-                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
-                                    {
-                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
-                                        _result = true;
-                                    }
-                                    else
-                                    {
-                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
-                                        _result = false;
-                                    }
+                                //    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                //    {
+                                //        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                //        _result = true;
+                                //    }
+                                //    else
+                                //    {
+                                //        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                //        _result = false;
+                                //    }
 
-                                    return _result;
-                                }
+                                //    return _result;
+                                //}
                             }
 
                             if(string.IsNullOrEmpty(sContactImplementationID))
@@ -435,11 +450,18 @@ namespace com.workflowconcepts.applications.uccx
                                 return _result;
                             }
 
-                            if (_recordManager.GetRecordByID(sRecordID) != null)
-                            {
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} A record with this id already exists; record cannot be added.");
+                            int iCountRecordsWithSameID = 0;
+                            CallbackRecord record = null;
 
-                                Response.Append("<Description>Record id already exists.</Description>");
+                            if(_recordManager.GetRecordByID(sRecordID, out iCountRecordsWithSameID, out record))
+                            {
+                                Trace.TraceInformation($"REQID({ReqID.ToString()}) {nameof(_recordManager.GetRecordByID)} returned true for sRecordID:{sRecordID} iCountRecordsWithSameID:{iCountRecordsWithSameID}");
+                            }
+                            else
+                            {
+                                Trace.TraceWarning($"REQID({ReqID.ToString()}) {nameof(_recordManager.GetRecordByID)} returned false for sRecordID:{sRecordID}");
+
+                                Response.Append("<Description>Error handling record insertion</Description>");
                                 Response.Append("<Code>-1</Code>");
 
                                 if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
@@ -456,9 +478,74 @@ namespace com.workflowconcepts.applications.uccx
                                 return _result;
                             }
 
-                            if (_recordManager.GetRecordByDNIS(sDNIS) != null)
+                            int iActiveRecordsForDNISCount = 0;
+
+                            if(_recordManager.GetCountOfActiveRecordsForDNIS(sDNIS, out iActiveRecordsForDNISCount))
                             {
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} A record with this DNIS already exists; record cannot be added.");
+                                Trace.TraceInformation("REQID{" + ReqID.ToString() + "} _recordManager.GetCountOfActiveRecordsForDNIS() returned true iActiveRecordsForDNISCount:" + iActiveRecordsForDNISCount);
+
+                                if(iActiveRecordsForDNISCount == 0)
+                                {
+                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "} No active record with this DNIS was found -> record can be added.");
+
+                                    if(iCountRecordsWithSameID != 0)
+                                    {
+                                        string sNewsRecordID = string.Empty;
+
+                                        if(Utilities.IncrementSessionIDSeqByOne(sRecordID, out sNewsRecordID))
+                                        {
+                                            Trace.TraceInformation("REQID{" + ReqID.ToString() + "} Utilities.IncrementSessionIDSeqByOne() returned true for sRecordID:" + sRecordID + " sNewsRecordID:" + sNewsRecordID);
+                                        }
+                                        else
+                                        {
+                                            Trace.TraceWarning("REQID{" + ReqID.ToString() + "} Utilities.IncrementSessionIDSeqByOne() returned false for sRecordID:" + sRecordID);
+
+                                            Response.Append("<Description>Error handling record insertion</Description>");
+                                            Response.Append("<Code>-1</Code>");
+
+                                            if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                            {
+                                                Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                                _result = true;
+                                            }
+                                            else
+                                            {
+                                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                                _result = false;
+                                            }
+
+                                            return _result;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} No need to increase session seq indentifier");
+                                    }
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} At least one active record with this DNIS was found -> record cannot be added.");
+
+                                    Response.Append("<Description>Active record with same DNIS exists.</Description>");
+                                    Response.Append("<Code>10</Code>");
+
+                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                    {
+                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "} SendMessage() returned true.");
+                                        _result = true;
+                                    }
+                                    else
+                                    {
+                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} SendMessage() returned false.");
+                                        _result = false;
+                                    }
+
+                                    return _result;
+                                }
+                            }
+                            else
+                            {
+                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "} _recordManager.GetCountOfActiveRecordsForDNIS() returned false");
 
                                 Response.Append("<Description>Record with same DNIS exists.</Description>");
                                 Response.Append("<Code>10</Code>");
@@ -774,12 +861,43 @@ namespace com.workflowconcepts.applications.uccx
 
                                 return _result;
                             }
+                            
+                            CallbackRecord recordtobedeleted = null;
 
-                            if (_recordManager.GetRecordByID(sRecordID) == null)
+                            if(_recordManager.GetRecordByID(sRecordID, out iCount, out recordtobedeleted))
                             {
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  A record with this id does not exist.");
+                                Trace.TraceInformation($"REQID({ReqID.ToString()}) {nameof(_recordManager.GetRecordByID)} returned true for sRecordID:{sRecordID}");
 
-                                Response.Append("<Description>Record with id does not exist.</Description>");
+                                if(recordtobedeleted != null)
+                                {
+                                    Trace.TraceInformation($"REQID({ReqID.ToString()}) {nameof(recordtobedeleted)} is not null -> A record with this id was found.");
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning($"REQID({ReqID.ToString()}) {nameof(recordtobedeleted)} is null -> A record with this id does not exist.");
+
+                                    Response.Append("<Description>Record with id does not exist.</Description>");
+                                    Response.Append("<Code>-1</Code>");
+
+                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                    {
+                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "}  SendMessage() returned true.");
+                                        _result = true;
+                                    }
+                                    else
+                                    {
+                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  SendMessage() returned false.");
+                                        _result = false;
+                                    }
+
+                                    return _result;
+                                }
+                            }
+                            else
+                            {
+                                Trace.TraceWarning($"REQID({ReqID.ToString()}) {nameof(_recordManager.GetRecordByID)} returned false for sRecordID:{sRecordID}");
+
+                                Response.Append("<Description>Unexpected error attempting to find record to delete</Description>");
                                 Response.Append("<Code>-1</Code>");
 
                                 if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
@@ -886,11 +1004,42 @@ namespace com.workflowconcepts.applications.uccx
                                 Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  sRequestID was either null or empty; assumed empty.");
                             }
 
-                            if (_recordManager.GetRecordByID(sRecordID) == null)
-                            {
-                                Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  A record with this id does not exist.");
+                            CallbackRecord recordtobeupdated = null;
 
-                                Response.Append("<Description>Record with id does not exist.</Description>");
+                            if (_recordManager.GetRecordByID(sRecordID, out iCount, out recordtobeupdated))
+                            {
+                                Trace.TraceInformation($"REQID({ReqID.ToString()}) {nameof(_recordManager.GetRecordByID)} returned true for sRecordID:{sRecordID}");
+
+                                if (recordtobeupdated != null)
+                                {
+                                    Trace.TraceInformation($"REQID({ReqID.ToString()}) {nameof(recordtobeupdated)} is not null -> A record with this id was found.");
+                                }
+                                else
+                                {
+                                    Trace.TraceWarning($"REQID({ReqID.ToString()}) {nameof(recordtobeupdated)} is null -> A record with this id does not exist.");
+
+                                    Response.Append("<Description>Record with id does not exist.</Description>");
+                                    Response.Append("<Code>-1</Code>");
+
+                                    if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
+                                    {
+                                        Trace.TraceInformation("REQID{" + ReqID.ToString() + "}  SendMessage() returned true.");
+                                        _result = true;
+                                    }
+                                    else
+                                    {
+                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  SendMessage() returned false.");
+                                        _result = false;
+                                    }
+
+                                    return _result;
+                                }
+                            }
+                            else
+                            {
+                                Trace.TraceWarning($"REQID({ReqID.ToString()}) {nameof(_recordManager.GetRecordByID)} returned false for sRecordID:{sRecordID}");
+
+                                Response.Append("<Description>Unexpected error attempting to find record to delete</Description>");
                                 Response.Append("<Code>-1</Code>");
 
                                 if (SendMessage(response, ReqID.ToString(), Response.ToString(), true))
@@ -982,19 +1131,32 @@ namespace com.workflowconcepts.applications.uccx
 
                             if (_recordManager != null)
                             {
-                                if (_recordManager.GetRecordByDNIS(sDNIS) != null)
+                                if(_recordManager.GetCountOfActiveRecordsForDNIS(sDNIS, out iCount))
                                 {
-                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "}  A record with this DNIS already exists; record cannot be added.");
+                                    Trace.TraceInformation("REQID{" + ReqID.ToString() + "} _recordManager.GetCountOfActiveRecordsForDNIS() returned true for DNIS:" + sDNIS + " iCount:" + iCount);
 
-                                    Response.Append("<Description>Record with same DNIS exists.</Description>");
-                                    Response.Append("<Code>0</Code>");
-                                    Response.Append("<DNISInUse>true</DNISInUse>");
+                                    if(iCount != 0)
+                                    {
+                                        Trace.TraceWarning("REQID{" + ReqID.ToString() + "} A record with this DNIS already exists; record cannot be added.");
+
+                                        Response.Append("<Description>Record with same DNIS exists.</Description>");
+                                        Response.Append("<Code>0</Code>");
+                                        Response.Append("<DNISInUse>true</DNISInUse>");
+                                    }
+                                    else
+                                    {
+                                        Response.Append("<Description>No record with this DNIS exists.</Description>");
+                                        Response.Append("<Code>0</Code>");
+                                        Response.Append("<DNISInUse>false</DNISInUse>");
+                                    }
                                 }
                                 else
                                 {
-                                    Response.Append("<Description>Record with same DNIS exists.</Description>");
-                                    Response.Append("<Code>0</Code>");
+                                    Trace.TraceWarning("REQID{" + ReqID.ToString() + "} _recordManager.GetCountOfActiveRecordsForDNIS() returned false for DNIS:" + sDNIS);
+
+                                    Response.Append("<Description>_settingsManager is null; cannot accept callback requests.</Description>");
                                     Response.Append("<DNISInUse>false</DNISInUse>");
+                                    Response.Append("<Code>-1</Code>");
                                 }
                             }
                             else

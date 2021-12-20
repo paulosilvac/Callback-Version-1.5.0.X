@@ -40,71 +40,137 @@ namespace com.workflowconcepts.applications.uccx
             iRecordCount = 0;
         }
 
-        public CallbackRecord GetRecordByID(String RecordID)
+        public bool GetRecordByID(string RecordID, out int Count, out CallbackRecord FirstMatchingRecord)
         {
             Trace.TraceInformation("Enter.");
 
             lock (objLock)
             {
-                if (RecordID == null || RecordID == String.Empty)
+                Count = 0;
+                FirstMatchingRecord = null;
+                
+                if (string.IsNullOrEmpty(RecordID))
                 {
-                    Trace.TraceWarning("RecordID is either null or empty.");
-                    return null;
+                    Trace.TraceWarning("RecordID is either null/empty.");
+                    return false;
                 }
 
-                foreach (CallbackRecord record in _Records)
+                List<CallbackRecord> records =  _Records.FindAll(r => r.ID == RecordID);
+
+                if(records != null)
                 {
-                    if (record.ID == RecordID)
+                    Trace.TraceWarning($"Number of records found for RecordID:{RecordID} {records.Count}");
+
+                    Count = records.Count;
+
+                    if (records.Count == 0)
                     {
-                        if(record.Status != Constants.RecordStatus.COMPLETED && record.Status != Constants.RecordStatus.DIALINGTARGET)
-                        {
-                            return record;
-                        }
-                        else
-                        {
-                            Trace.TraceWarning("A record with ID " + RecordID + " already exists but is in Status " + record.Status + "; insertion will be allowed. !!!This exception was added because of the Requeue gadget -> problematic and needs to be reviewed!!!");
-                        }
+                    
+                    }
+                    else if(records.Count == 1)
+                    {                        
+                        FirstMatchingRecord = records[0];
+                    }
+                    else
+                    {
+                    
                     }
                 }
+                else
+                {
+                    Trace.TraceWarning($"No records found for RecordID:{RecordID}");
+                }
 
-                Trace.TraceWarning("RecordID " + RecordID + " was not found.");
+                return true;
 
-                return null;
+                //foreach (CallbackRecord record in _Records)
+                //{
+                //    if (record.ID == RecordID)
+                //    {
+                //        if(record.Status != Constants.RecordStatus.COMPLETED && record.Status != Constants.RecordStatus.DIALINGTARGET)
+                //        {
+                //            return record;
+                //        }
+                //        else
+                //        {
+                //            Trace.TraceWarning("A record with ID " + RecordID + " already exists but is in Status " + record.Status + "; insertion will be allowed. !!!This exception was added because of the Requeue gadget -> problematic and needs to be reviewed!!!");
+                //        }
+                //    }
+                //}
+
+                //Trace.TraceWarning("RecordID " + RecordID + " was not found.");
+
+                //return null;
 
             }//lock (objLock)
         }
 
-        public CallbackRecord GetRecordByDNIS(String DNIS)
+        public bool GetCountOfActiveRecordsForDNIS(string DNIS, out int Count)
         {
             Trace.TraceInformation("Enter.");
 
             lock (objLock)
             {
-                if (DNIS == null || DNIS == String.Empty)
+                Count = 0;
+
+                if (string.IsNullOrEmpty(DNIS))
                 {
-                    Trace.TraceWarning("DNIS is either null or empty.");
-                    return null;
+                    Trace.TraceWarning("RecordID is either null/empty.");
+                    return false;
                 }
 
-                foreach (CallbackRecord record in _Records)
+                List<CallbackRecord> records = _Records.FindAll(r => r.DNIS == DNIS);
+
+                if (records != null)
                 {
-                    if (record.DNIS == DNIS)
+                    Trace.TraceWarning($"Number of records found for DNIS:{DNIS} {records.Count}");
+
+                    if (records.Count == 0)
                     {
-                        if (record.Status != Constants.RecordStatus.COMPLETED
-                            && record.Status != Constants.RecordStatus.EXCEEDEDNUMBEROFATTEMPTS)
+                        records = null;
+                    }
+                    else
+                    {
+                        List<CallbackRecord> recordsnotactive = records.FindAll(r => r.Status == Constants.RecordStatus.DIALINGTARGET || r.Status == Constants.RecordStatus.COMPLETED);
+
+                        if(recordsnotactive == null)
                         {
-                            return record;
+                            Count = records.Count;
+                            records = null;
                         }
                         else
                         {
-                            Trace.TraceWarning("A record with DNIS " + DNIS + " already exists but is in Status " + record.Status + "; insertion will be allowed. !!!This exception was added because of the Requeue gadget -> problematic and needs to be reviewed!!!");
+                            Count = records.Count - recordsnotactive.Count;
+                            records = null;
                         }
                     }
                 }
+                else
+                {
+                    Trace.TraceWarning($"No records found for DNIS:{DNIS}");
+                }
 
-                Trace.TraceWarning("DNIS " + DNIS + " was not found.");
+                return true;
 
-                return null;
+                //foreach (CallbackRecord record in _Records)
+                //{
+                //    if (record.DNIS == DNIS)
+                //    {
+                //        if (record.Status != Constants.RecordStatus.COMPLETED
+                //            && record.Status != Constants.RecordStatus.EXCEEDEDNUMBEROFATTEMPTS)
+                //        {
+                //            return record;
+                //        }
+                //        else
+                //        {
+                //            Trace.TraceWarning("A record with DNIS " + DNIS + " already exists but is in Status " + record.Status + "; insertion will be allowed. !!!This exception was added because of the Requeue gadget -> problematic and needs to be reviewed!!!");
+                //        }
+                //    }
+                //}
+
+                //Trace.TraceWarning("DNIS " + DNIS + " was not found.");
+
+                //return null;
 
             }//lock (objLock)
         }

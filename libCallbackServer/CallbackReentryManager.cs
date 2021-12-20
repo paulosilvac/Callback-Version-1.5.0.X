@@ -759,7 +759,18 @@ namespace com.workflowconcepts.applications.uccx
 
                     Trace.TraceInformation("Record " + sRecordID + "  Attempt reentry");
 
-                    CallbackRecord record = _recordManager.GetRecordByID(sRecordID);
+                    int iCount = 0;
+                    CallbackRecord record = null;
+                    
+                    if(_recordManager.GetRecordByID(sRecordID, out iCount, out record))
+                    {
+                        Trace.TraceInformation($"RecordID:{sRecordID} {nameof(_recordManager.GetRecordByID)} returned true");
+                    }
+                    else
+                    {
+                        Trace.TraceWarning($"RecordID:{sRecordID} {nameof(_recordManager.GetRecordByID)} returned false");
+                        return;
+                    }
 
                     if (record == null)
                     {
