@@ -556,7 +556,7 @@ namespace com.workflowconcepts.applications.uccx
 
                     }//foreach (CallbackRecord record in _Records)
 
-                    ErrorDescription = "No record was found with RecordID";
+                    ErrorDescription = "No record was found with RecordID and ReqID combination";
 
                     return false;
                 }

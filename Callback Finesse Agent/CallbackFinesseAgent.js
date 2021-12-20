@@ -503,7 +503,7 @@ finesse.modules.CallbackFinesseAgent = (function ($) {
 			_dnis = dialog.getMediaProperties()["userdnis"];
 			_targetcsq = dialog.getMediaProperties()["usertargetcsq"];
 			_prompt = dialog.getMediaProperties()["userprompt"];
-			_sessionid = dialog.getMediaProperties()["userid"];
+			_sessionid = dialog.getMediaProperties()["usersessionid"];
 			_implid = dialog.getMediaProperties()["userimplid"];
 			_contactid = dialog.getMediaProperties()["usercontactid"];
 			_language = dialog.getMediaProperties()["userlanguage"];
@@ -764,7 +764,7 @@ finesse.modules.CallbackFinesseAgent = (function ($) {
 			
 			var sVersion = "";
 			
-			sVersion = " [DEV Version: 1.0.0.0006]";
+			sVersion = " [DEV Version: 1.0.0.0007]";
 			
 			// $("#gadgetname").text("Callback Requeue" + sVersion);
 			
